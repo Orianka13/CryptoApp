@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol IAuthView {
-    
+    var loginHandler: (() -> Void)? { get set }
 }
 
 final class AuthView: UIView {
@@ -39,6 +39,7 @@ final class AuthView: UIView {
         static let mainColor = UIColor(red: 103/255, green: 222/255, blue: 165/255, alpha: 1)
         static let tfBackgroundColor: UIColor = .white
     }
+    var loginHandler: (() -> Void)?
     
     private lazy var labelTitle: UILabel = {
         let label = UILabel()
@@ -70,6 +71,7 @@ final class AuthView: UIView {
         button.setTitle(Literal.loginButtonTitle, for: .normal)
         button.backgroundColor = Colors.mainColor
         button.layer.cornerRadius = Metrics.cornerRadius
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -104,6 +106,12 @@ final class AuthView: UIView {
         self.makePasswordFieldConstraints()
         self.makeLoginButtonConstraints()
         self.makeRegisterButtonConstraints()
+    }
+}
+
+private extension AuthView {
+    @objc func loginButtonTapped() {
+        self.loginHandler?()
     }
 }
 

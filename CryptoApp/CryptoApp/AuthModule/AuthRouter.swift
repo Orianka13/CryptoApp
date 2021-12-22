@@ -12,8 +12,8 @@ final class AuthRouter {
     
     func next(/*cars: [Car], */controller: AuthViewController) {
         
-        //let targetController = DetailAssembly.build(cars: cars)
+        let targetController = ListAssembly.build()
         
-        //controller.navigationController?.pushViewController(targetController, animated: true)
+        controller.navigationController?.pushViewController(targetController, animated: true)
     }
 }

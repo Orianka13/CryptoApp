@@ -34,7 +34,10 @@ final class AuthPresenter {
 private extension AuthPresenter {
     
     func setHandlers() {
-        
+        self.view?.loginHandler = { [weak self] in
+            guard let vc = self?.controller else { return }
+            self?.router.next(controller: vc)
+        }
     }
 }
 

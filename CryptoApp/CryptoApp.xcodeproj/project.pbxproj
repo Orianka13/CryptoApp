@@ -19,6 +19,14 @@
 		593409162773526200E0974E /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409152773526200E0974E /* AuthView.swift */; };
 		593409182773527E00E0974E /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409172773527E00E0974E /* AuthAssembly.swift */; };
 		5934091A2773534C00E0974E /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409192773534C00E0974E /* AuthRouter.swift */; };
+		5934091D2773809200E0974E /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934091C2773809200E0974E /* ListModel.swift */; };
+		5934091F277380A000E0974E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934091E277380A000E0974E /* ListViewController.swift */; };
+		59340921277380A900E0974E /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59340920277380A900E0974E /* ListView.swift */; };
+		59340923277380B400E0974E /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59340922277380B400E0974E /* ListPresenter.swift */; };
+		59340925277380BF00E0974E /* ListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59340924277380BF00E0974E /* ListAssembly.swift */; };
+		59340927277380C900E0974E /* ListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59340926277380C900E0974E /* ListRouter.swift */; };
+		593409292773811100E0974E /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409282773811100E0974E /* ListTableView.swift */; };
+		5934092B2773811D00E0974E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934092A2773811D00E0974E /* ListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +44,14 @@
 		593409152773526200E0974E /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		593409172773527E00E0974E /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		593409192773534C00E0974E /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		5934091C2773809200E0974E /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
+		5934091E277380A000E0974E /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		59340920277380A900E0974E /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		59340922277380B400E0974E /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
+		59340924277380BF00E0974E /* ListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAssembly.swift; sourceTree = "<group>"; };
+		59340926277380C900E0974E /* ListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRouter.swift; sourceTree = "<group>"; };
+		593409282773811100E0974E /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
+		5934092A2773811D00E0974E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +87,7 @@
 				593408F72773500B00E0974E /* AppDelegate.swift */,
 				593408F92773500B00E0974E /* SceneDelegate.swift */,
 				593409102773521900E0974E /* AuthModule */,
+				5934091B2773801900E0974E /* ListModule */,
 				593409032773500E00E0974E /* Assets.xcassets */,
 				593409052773500E00E0974E /* LaunchScreen.storyboard */,
 				593409082773500E00E0974E /* Info.plist */,
@@ -91,6 +108,29 @@
 				593409192773534C00E0974E /* AuthRouter.swift */,
 			);
 			path = AuthModule;
+			sourceTree = "<group>";
+		};
+		5934091B2773801900E0974E /* ListModule */ = {
+			isa = PBXGroup;
+			children = (
+				5934091C2773809200E0974E /* ListModel.swift */,
+				5934092C2773870C00E0974E /* View */,
+				59340922277380B400E0974E /* ListPresenter.swift */,
+				59340924277380BF00E0974E /* ListAssembly.swift */,
+				59340926277380C900E0974E /* ListRouter.swift */,
+			);
+			path = ListModule;
+			sourceTree = "<group>";
+		};
+		5934092C2773870C00E0974E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				59340920277380A900E0974E /* ListView.swift */,
+				593409282773811100E0974E /* ListTableView.swift */,
+				5934092A2773811D00E0974E /* ListTableViewCell.swift */,
+				5934091E277380A000E0974E /* ListViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,15 +203,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59340923277380B400E0974E /* ListPresenter.swift in Sources */,
 				5934090F2773515600E0974E /* CoreDataStack.swift in Sources */,
+				59340925277380BF00E0974E /* ListAssembly.swift in Sources */,
+				593409292773811100E0974E /* ListTableView.swift in Sources */,
+				59340921277380A900E0974E /* ListView.swift in Sources */,
+				5934092B2773811D00E0974E /* ListTableViewCell.swift in Sources */,
 				593409022773500B00E0974E /* CryptoApp.xcdatamodeld in Sources */,
+				5934091F277380A000E0974E /* ListViewController.swift in Sources */,
 				5934091A2773534C00E0974E /* AuthRouter.swift in Sources */,
 				593409142773525900E0974E /* AuthModel.swift in Sources */,
+				59340927277380C900E0974E /* ListRouter.swift in Sources */,
 				593409182773527E00E0974E /* AuthAssembly.swift in Sources */,
 				593408FC2773500B00E0974E /* AuthViewController.swift in Sources */,
 				593408F82773500B00E0974E /* AppDelegate.swift in Sources */,
 				593409122773524F00E0974E /* AuthPresenter.swift in Sources */,
 				593409162773526200E0974E /* AuthView.swift in Sources */,
+				5934091D2773809200E0974E /* ListModel.swift in Sources */,
 				593408FA2773500B00E0974E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
