@@ -12,7 +12,7 @@ protocol IListTableView {
     
     var didSelectRowAtHandler: ((IndexPath) -> Void)? { get set }
     var numberOfRowsInSectionHandler: (() -> Int)? { get set }
-    var cellForRowAtHandler: ((IndexPath) -> String)? { get set }
+    var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)? { get set }
     func reloadTableView()
     func getTableView() -> UITableView
 }
@@ -26,6 +26,11 @@ final class ListTableView: UIView {
     
     private enum Colors {
         static let backgroundColor: UIColor = .black
+        static let textColor: UIColor = .white
+    }
+    
+    private enum Fonts {
+        static let textFont = UIFont(name: "HiraginoSans-W3", size: 18)
     }
     
     private var tableView: UITableView = UITableView()
@@ -33,7 +38,7 @@ final class ListTableView: UIView {
     
     var didSelectRowAtHandler: ((IndexPath) -> Void)?
     var numberOfRowsInSectionHandler: (() -> Int)?
-    var cellForRowAtHandler: ((IndexPath) -> String)?
+    var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,8 +85,10 @@ extension ListTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as! ListTableViewCell
-        let name = self.cellForRowAtHandler?(indexPath)
+        let name = self.cellForRowAtHandler?(cell, indexPath)
         cell.textLabel?.text = name
+        cell.textLabel?.textColor = Colors.textColor
+        cell.textLabel?.font = Fonts.textFont
         cell.selectionStyle = .none
         
         return cell
@@ -99,7 +106,9 @@ extension ListTableView: UITableViewDelegate {
 extension ListTableView: IListTableView {
     
     func reloadTableView(){
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func getTableView() -> UITableView {

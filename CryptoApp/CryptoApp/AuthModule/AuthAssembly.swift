@@ -13,6 +13,7 @@ final class AuthAssembly {
         
         let router = AuthRouter()
         
+        
         let presenter = AuthPresenter(dependencies: .init(router: router))
         let controller = AuthViewController(dependencies: .init(presenter: presenter))
         

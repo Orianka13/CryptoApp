@@ -21,17 +21,21 @@ final class ListPresenter {
     private weak var controller: ListViewController?
     private var view: IListView?
     
+    private var network: INetworkManager
     private var tableView: ListTableView?
     private let coreDS = CoreDataStack()
-    private var data = [ListModel]()
     private var router: ListRouter
+    
+    private var coinArray = [ListModel]()
     
     struct Dependencies {
         let router: ListRouter
+        let network: INetworkManager
     }
     
     init(dependencies: Dependencies) {
         self.router = dependencies.router
+        self.network = dependencies.network
     }
     
 }
@@ -39,33 +43,54 @@ final class ListPresenter {
 //MARK: Private extension
 private extension ListPresenter {
     func setHandlers() {
-//        self.controller?.onTouchedHandler = {[weak self] name in
-//
+        
+//        self.tableView?.didSelectRowAtHandler = { [weak self] indexPath in
+//            guard let item = self?.data[indexPath.row] else { return }
 //        }
         
-        
-        self.tableView?.didSelectRowAtHandler = { [weak self] indexPath in
-            guard let item = self?.data[indexPath.row] else { return }
-          
-            //let vc = EmployeeAssembly.build(companyUid: uid)
-            //self?.controller?.navigationController?.pushViewController(vc, animated: true)
+        self.tableView?.cellForRowAtHandler = { cell, indexPath in
+            let item = self.coinArray[indexPath.row]
+            cell.setLabelsText(price: item.getPrice(), percent: item.getChangePecent())
+            return item.getSymbol()
         }
+        
+        
         
         self.tableView?.numberOfRowsInSectionHandler = { [weak self] in
-            return self?.data.count ?? 0
+            return self?.coinArray.count ?? 0
         }
-        
-//        self.tableView?.cellForRowAtHandler = { [weak self] indexPath in
-//            let item = self?.data[indexPath.row]
-//            return item?.getName() ?? Literal.itemError
-//        }
-        
     }
     
     
     private func getContext() -> NSManagedObjectContext {
         return self.coreDS.persistentContainer.viewContext
         
+    }
+    
+    func loadDataNetwork() {
+        self.network.loadData { (result: Result<ModelDTO, Error>) in
+            switch result {
+            case .success(let model):
+                let data = model.data
+                data.forEach() { item in
+                    let model = ListModel(id: item.id, symbol: item.symbol,
+                                          name: item.name, priceUsd: item.priceUsd,
+                                          changePercent24Hr: item.changePercent24Hr)
+                    self.coinArray.append(model)
+                    self.tableView?.reloadTableView()
+                    self.setHandlers()
+                }
+                
+                DispatchQueue.main.async {
+                    print("Загрузка закончена \(model.timestamp)")
+                }
+            case .failure(let error):
+                print("[NETWORK] error is: \(error)")
+                DispatchQueue.main.async {
+                    print("Загрузка закончена с ошибкой \(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
 
@@ -79,7 +104,9 @@ extension ListPresenter: IListPresenter {
         self.view = view
         
         self.tableView = view.getTableView()
-        self.setHandlers()
+        
+        self.loadDataNetwork()
+        
         self.controller?.setNavBar()
         
     }

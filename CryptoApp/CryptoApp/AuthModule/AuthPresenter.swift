@@ -17,6 +17,7 @@ final class AuthPresenter {
     private weak var controller: AuthViewController?
     private var view: IAuthView?
     private let coreDS = CoreDataStack()
+   
     
     struct Dependencies {
         let router: AuthRouter
