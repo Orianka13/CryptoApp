@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol IAuthViewController {
+    func showAlert(message: String)
+}
+
 final class AuthViewController: UIViewController {
     
     private enum Colors {
@@ -53,5 +57,13 @@ final class AuthViewController: UIViewController {
 private extension AuthViewController {
     
 
+}
+
+extension AuthViewController: IAuthViewController {
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Внимание", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 

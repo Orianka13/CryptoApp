@@ -10,7 +10,7 @@ import UIKit
 
 final class AuthRouter {
     
-    func next(/*cars: [Car], */controller: AuthViewController) {
+    func next(user: AuthModel, controller: AuthViewController) {
         
         let targetController = ListAssembly.build()
         

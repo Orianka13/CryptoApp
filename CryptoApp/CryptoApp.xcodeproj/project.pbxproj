@@ -27,6 +27,9 @@
 		59340927277380C900E0974E /* ListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59340926277380C900E0974E /* ListRouter.swift */; };
 		593409292773811100E0974E /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409282773811100E0974E /* ListTableView.swift */; };
 		5934092B2773811D00E0974E /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934092A2773811D00E0974E /* ListTableViewCell.swift */; };
+		5934092E27738DD900E0974E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934092D27738DD900E0974E /* NetworkManager.swift */; };
+		5934093827747E7D00E0974E /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093627747E7D00E0974E /* User+CoreDataClass.swift */; };
+		5934093927747E7D00E0974E /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093727747E7D00E0974E /* User+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		59340926277380C900E0974E /* ListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRouter.swift; sourceTree = "<group>"; };
 		593409282773811100E0974E /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
 		5934092A2773811D00E0974E /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		5934092D27738DD900E0974E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		5934093627747E7D00E0974E /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5934093727747E7D00E0974E /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,13 +92,13 @@
 			children = (
 				593408F72773500B00E0974E /* AppDelegate.swift */,
 				593408F92773500B00E0974E /* SceneDelegate.swift */,
+				5934092D27738DD900E0974E /* NetworkManager.swift */,
+				5934092F2773907C00E0974E /* CoreData */,
 				593409102773521900E0974E /* AuthModule */,
 				5934091B2773801900E0974E /* ListModule */,
 				593409032773500E00E0974E /* Assets.xcassets */,
 				593409052773500E00E0974E /* LaunchScreen.storyboard */,
 				593409082773500E00E0974E /* Info.plist */,
-				593409002773500B00E0974E /* CryptoApp.xcdatamodeld */,
-				5934090E2773515600E0974E /* CoreDataStack.swift */,
 			);
 			path = CryptoApp;
 			sourceTree = "<group>";
@@ -131,6 +137,17 @@
 				5934091E277380A000E0974E /* ListViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5934092F2773907C00E0974E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				593409002773500B00E0974E /* CryptoApp.xcdatamodeld */,
+				5934090E2773515600E0974E /* CoreDataStack.swift */,
+				5934093727747E7D00E0974E /* User+CoreDataProperties.swift */,
+				5934093627747E7D00E0974E /* User+CoreDataClass.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5934092E27738DD900E0974E /* NetworkManager.swift in Sources */,
 				59340923277380B400E0974E /* ListPresenter.swift in Sources */,
 				5934090F2773515600E0974E /* CoreDataStack.swift in Sources */,
 				59340925277380BF00E0974E /* ListAssembly.swift in Sources */,
@@ -216,8 +234,10 @@
 				59340927277380C900E0974E /* ListRouter.swift in Sources */,
 				593409182773527E00E0974E /* AuthAssembly.swift in Sources */,
 				593408FC2773500B00E0974E /* AuthViewController.swift in Sources */,
+				5934093827747E7D00E0974E /* User+CoreDataClass.swift in Sources */,
 				593408F82773500B00E0974E /* AppDelegate.swift in Sources */,
 				593409122773524F00E0974E /* AuthPresenter.swift in Sources */,
+				5934093927747E7D00E0974E /* User+CoreDataProperties.swift in Sources */,
 				593409162773526200E0974E /* AuthView.swift in Sources */,
 				5934091D2773809200E0974E /* ListModel.swift in Sources */,
 				593408FA2773500B00E0974E /* SceneDelegate.swift in Sources */,

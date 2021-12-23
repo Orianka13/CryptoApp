@@ -12,9 +12,8 @@ final class AuthAssembly {
     static func build() -> UIViewController {
         
         let router = AuthRouter()
-        let model = AuthModel()
         
-        let presenter = AuthPresenter(dependencies: .init(model: model, router: router))
+        let presenter = AuthPresenter(dependencies: .init(router: router))
         let controller = AuthViewController(dependencies: .init(presenter: presenter))
         
         return controller

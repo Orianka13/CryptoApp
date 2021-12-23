@@ -10,7 +10,7 @@ import UIKit
 
 final class ListRouter {
     
-    func next(/*cars: [Car], */controller: ListViewController) {
+    func next(user: User, controller: ListViewController) {
         
         //let targetController = DetailAssembly.build(cars: cars)
         

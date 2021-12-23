@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 protocol IAuthView {
-    var loginHandler: (() -> Void)? { get set }
+    var loginHandler: ((String?, String?) -> Void)? { get set }
+    var registerHandler: ((String?, String?) -> Void)? { get set }
 }
 
 final class AuthView: UIView {
@@ -39,7 +40,8 @@ final class AuthView: UIView {
         static let mainColor = UIColor(red: 103/255, green: 222/255, blue: 165/255, alpha: 1)
         static let tfBackgroundColor: UIColor = .white
     }
-    var loginHandler: (() -> Void)?
+    var loginHandler: ((String?, String?) -> Void)?
+    var registerHandler: ((String?, String?) -> Void)?
     
     private lazy var labelTitle: UILabel = {
         let label = UILabel()
@@ -78,6 +80,7 @@ final class AuthView: UIView {
     private lazy var registerButton: UIButton = {
         let button = UIButton()
         button.setTitle(Literal.registerButtonTitle, for: .normal)
+        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -111,7 +114,11 @@ final class AuthView: UIView {
 
 private extension AuthView {
     @objc func loginButtonTapped() {
-        self.loginHandler?()
+        self.loginHandler?(self.loginField.text, self.passwordField.text)
+    }
+    
+    @objc func registerButtonTapped() {
+        self.registerHandler?(self.loginField.text, self.passwordField.text)
     }
 }
 
