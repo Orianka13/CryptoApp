@@ -28,6 +28,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         let vc = AuthAssembly.build()
+        //let vc = DetailAssembly.build()
         let navVC = UINavigationController(rootViewController: vc)
         
         navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Colors.mainColor,

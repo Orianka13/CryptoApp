@@ -46,9 +46,11 @@ final class ListPresenter {
 private extension ListPresenter {
     func setHandlers() {
         
-//        self.tableView?.didSelectRowAtHandler = { [weak self] indexPath in
-//            guard let item = self?.data[indexPath.row] else { return }
-//        }
+        self.tableView?.didSelectRowAtHandler = { [weak self] indexPath in
+            guard let item = self?.data[indexPath.row] else { return }
+            guard let controller = self?.controller else { return }
+            self?.router.next(item: item, controller: controller)
+        }
         
         self.tableView?.cellForRowAtHandler = { cell, indexPath in
             let item = self.filteredData[indexPath.row]

@@ -37,6 +37,7 @@ final class ListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = Fonts.textFont
         label.textColor = Colors.textColor
+        label.textAlignment = .center
         return label
     }()
     
@@ -44,6 +45,7 @@ final class ListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = Fonts.textFont
         label.textColor = Colors.riseColor
+        label.textAlignment = .right
         return label
     }()
     

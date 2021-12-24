@@ -31,6 +31,13 @@
 		5934093827747E7D00E0974E /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093627747E7D00E0974E /* User+CoreDataClass.swift */; };
 		5934093927747E7D00E0974E /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093727747E7D00E0974E /* User+CoreDataProperties.swift */; };
 		5934093B2774B56C00E0974E /* ModelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093A2774B56B00E0974E /* ModelDTO.swift */; };
+		5934093E2775CE4100E0974E /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093D2775CE4100E0974E /* DetailModel.swift */; };
+		593409402775CE4E00E0974E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5934093F2775CE4E00E0974E /* DetailViewController.swift */; };
+		593409422775CE5700E0974E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409412775CE5700E0974E /* DetailView.swift */; };
+		593409442775CE6200E0974E /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409432775CE6200E0974E /* DetailPresenter.swift */; };
+		593409462775CE6D00E0974E /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409452775CE6D00E0974E /* DetailAssembly.swift */; };
+		593409482775CE7600E0974E /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409472775CE7600E0974E /* DetailRouter.swift */; };
+		5934094A2775D34900E0974E /* DetailModelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409492775D34900E0974E /* DetailModelDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +67,13 @@
 		5934093627747E7D00E0974E /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5934093727747E7D00E0974E /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5934093A2774B56B00E0974E /* ModelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDTO.swift; sourceTree = "<group>"; };
+		5934093D2775CE4100E0974E /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
+		5934093F2775CE4E00E0974E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		593409412775CE5700E0974E /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		593409432775CE6200E0974E /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		593409452775CE6D00E0974E /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
+		593409472775CE7600E0974E /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		593409492775D34900E0974E /* DetailModelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModelDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +112,7 @@
 				5934092F2773907C00E0974E /* CoreData */,
 				593409102773521900E0974E /* AuthModule */,
 				5934091B2773801900E0974E /* ListModule */,
+				5934093C2775CDF000E0974E /* DetailModule */,
 				593409032773500E00E0974E /* Assets.xcassets */,
 				593409052773500E00E0974E /* LaunchScreen.storyboard */,
 				593409082773500E00E0974E /* Info.plist */,
@@ -151,6 +166,36 @@
 				5934093627747E7D00E0974E /* User+CoreDataClass.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		5934093C2775CDF000E0974E /* DetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				5934094B27760AF800E0974E /* Model */,
+				5934094C27760B0300E0974E /* View */,
+				593409432775CE6200E0974E /* DetailPresenter.swift */,
+				593409452775CE6D00E0974E /* DetailAssembly.swift */,
+				593409472775CE7600E0974E /* DetailRouter.swift */,
+			);
+			path = DetailModule;
+			sourceTree = "<group>";
+		};
+		5934094B27760AF800E0974E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5934093D2775CE4100E0974E /* DetailModel.swift */,
+				593409492775D34900E0974E /* DetailModelDTO.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5934094C27760B0300E0974E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5934093F2775CE4E00E0974E /* DetailViewController.swift */,
+				593409412775CE5700E0974E /* DetailView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,9 +272,12 @@
 				59340923277380B400E0974E /* ListPresenter.swift in Sources */,
 				5934090F2773515600E0974E /* CoreDataStack.swift in Sources */,
 				59340925277380BF00E0974E /* ListAssembly.swift in Sources */,
+				5934093E2775CE4100E0974E /* DetailModel.swift in Sources */,
+				593409482775CE7600E0974E /* DetailRouter.swift in Sources */,
 				593409292773811100E0974E /* ListTableView.swift in Sources */,
 				59340921277380A900E0974E /* ListView.swift in Sources */,
 				5934092B2773811D00E0974E /* ListTableViewCell.swift in Sources */,
+				593409422775CE5700E0974E /* DetailView.swift in Sources */,
 				593409022773500B00E0974E /* CryptoApp.xcdatamodeld in Sources */,
 				5934091F277380A000E0974E /* ListViewController.swift in Sources */,
 				5934091A2773534C00E0974E /* AuthRouter.swift in Sources */,
@@ -237,13 +285,17 @@
 				59340927277380C900E0974E /* ListRouter.swift in Sources */,
 				593409182773527E00E0974E /* AuthAssembly.swift in Sources */,
 				593408FC2773500B00E0974E /* AuthViewController.swift in Sources */,
+				593409402775CE4E00E0974E /* DetailViewController.swift in Sources */,
 				5934093827747E7D00E0974E /* User+CoreDataClass.swift in Sources */,
 				593408F82773500B00E0974E /* AppDelegate.swift in Sources */,
 				593409122773524F00E0974E /* AuthPresenter.swift in Sources */,
 				5934093B2774B56C00E0974E /* ModelDTO.swift in Sources */,
+				5934094A2775D34900E0974E /* DetailModelDTO.swift in Sources */,
 				5934093927747E7D00E0974E /* User+CoreDataProperties.swift in Sources */,
 				593409162773526200E0974E /* AuthView.swift in Sources */,
+				593409442775CE6200E0974E /* DetailPresenter.swift in Sources */,
 				5934091D2773809200E0974E /* ListModel.swift in Sources */,
+				593409462775CE6D00E0974E /* DetailAssembly.swift in Sources */,
 				593408FA2773500B00E0974E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

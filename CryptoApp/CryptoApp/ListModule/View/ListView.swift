@@ -86,6 +86,7 @@ extension ListView: IListView {
     }
 }
 
+//MARK: UISearchBarDelegate
 extension ListView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchBarHandler?(searchText)
