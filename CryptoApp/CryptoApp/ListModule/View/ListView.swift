@@ -10,6 +10,7 @@ import UIKit
 protocol IListView {
     func getTableView() -> ListTableView
     var onTouchedHandler: ((String) -> Void)? { get set }
+    var searchBarHandler: ((String) -> Void)? { get set }
 }
 
 final class ListView: UIView {
@@ -20,20 +21,28 @@ final class ListView: UIView {
         static let zeroSpacing = CGFloat(0)
     }
     
+    private enum Fonts {
+        static let textFont = UIFont(name: "HiraginoSans-W3", size: 15)
+    }
+    
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.barTintColor = .black
+        searchBar.searchTextField.textColor = .white
+        searchBar.searchTextField.font = Fonts.textFont
         return searchBar
     }()
     
     private var tableView = ListTableView()
     
     var onTouchedHandler: ((String) -> Void)?
+    var searchBarHandler: ((String) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addView()
         self.setConstraint()
+        self.searchBar.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -74,5 +83,11 @@ extension ListView: IListView {
     
     func getTableView() -> ListTableView {
         return self.tableView
+    }
+}
+
+extension ListView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchBarHandler?(searchText)
     }
 }

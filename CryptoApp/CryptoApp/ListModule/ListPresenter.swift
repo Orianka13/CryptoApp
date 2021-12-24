@@ -26,7 +26,8 @@ final class ListPresenter {
     private let coreDS = CoreDataStack()
     private var router: ListRouter
     
-    private var coinArray = [ListModel]()
+    private var data = [ListModel]()
+    private var filteredData = [ListModel]()
     
     struct Dependencies {
         let router: ListRouter
@@ -36,6 +37,7 @@ final class ListPresenter {
     init(dependencies: Dependencies) {
         self.router = dependencies.router
         self.network = dependencies.network
+        
     }
     
 }
@@ -49,15 +51,22 @@ private extension ListPresenter {
 //        }
         
         self.tableView?.cellForRowAtHandler = { cell, indexPath in
-            let item = self.coinArray[indexPath.row]
+            let item = self.filteredData[indexPath.row]
             cell.setLabelsText(price: item.getPrice(), percent: item.getChangePecent())
             return item.getSymbol()
         }
         
-        
-        
         self.tableView?.numberOfRowsInSectionHandler = { [weak self] in
-            return self?.coinArray.count ?? 0
+            return self?.filteredData.count ?? 0
+        }
+        
+        self.view?.searchBarHandler = { [weak self] searchText in
+            guard let data = self?.data else { return }
+            self?.filteredData = searchText.isEmpty ? data : data.filter({(dataItem: ListModel) -> Bool in
+                let dataSymbol = dataItem.getSymbol()
+                return dataSymbol.range(of: searchText, options: .caseInsensitive) != nil
+            })
+            self?.tableView?.reloadTableView()
         }
     }
     
@@ -68,18 +77,23 @@ private extension ListPresenter {
     }
     
     func loadDataNetwork() {
-        self.network.loadData { (result: Result<ModelDTO, Error>) in
+        self.network.loadData { [weak self] (result: Result<ModelDTO, Error>) in
             switch result {
             case .success(let model):
                 let data = model.data
-                data.forEach() { item in
+                data.forEach() { [weak self] item in
                     let model = ListModel(id: item.id, symbol: item.symbol,
                                           name: item.name, priceUsd: item.priceUsd,
                                           changePercent24Hr: item.changePercent24Hr)
-                    self.coinArray.append(model)
-                    self.tableView?.reloadTableView()
-                    self.setHandlers()
+                    self?.data.append(model)
+                    self?.tableView?.reloadTableView()
+                    self?.setHandlers()
                 }
+                guard let data = self?.data else {
+                    print("No data in data")
+                    return
+                }
+                self?.filteredData = data
                 
                 DispatchQueue.main.async {
                     print("Загрузка закончена \(model.timestamp)")
