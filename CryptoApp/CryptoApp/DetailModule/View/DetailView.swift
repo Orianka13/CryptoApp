@@ -8,7 +8,10 @@
 import UIKit
 
 protocol IDetailView {
-    
+    func setAllView(averagePrice: String, highPrice: Double,
+                    highMarket: String, lowPrice: Double,
+                    lowMarket: String, avaliableAmount: String,
+                    changePercent: Double)
 }
 
 final class DetailView: UIView {
@@ -50,7 +53,6 @@ final class DetailView: UIView {
     
     private lazy var avaregePrice: UILabel = {
         let label = UILabel()
-        label.text = "61000 $"
         label.font = Fonts.textFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -68,7 +70,6 @@ final class DetailView: UIView {
     
     private lazy var highPrice: UILabel = {
         let label = UILabel()
-        label.text = "81 000 $"
         label.font = Fonts.lowTextFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -77,7 +78,6 @@ final class DetailView: UIView {
     
     private lazy var highMarketLabel: UILabel = {
         let label = UILabel()
-        label.text = "High Market"
         label.font = Fonts.soLowTextFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -94,7 +94,6 @@ final class DetailView: UIView {
     
     private lazy var lowPrice: UILabel = {
         let label = UILabel()
-        label.text = "51 000 $"
         label.font = Fonts.lowTextFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -103,7 +102,6 @@ final class DetailView: UIView {
     
     private lazy var lowMarketLabel: UILabel = {
         let label = UILabel()
-        label.text = "Low Market"
         label.font = Fonts.soLowTextFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -120,7 +118,6 @@ final class DetailView: UIView {
     
     private lazy var avaliableAmount: UILabel = {
         let label = UILabel()
-        label.text = "21 000 pcs"
         label.font = Fonts.textFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -137,7 +134,6 @@ final class DetailView: UIView {
     
     private lazy var changePercent: UILabel = {
         let label = UILabel()
-        label.text = "- 18 %"
         label.font = Fonts.lowTextFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
@@ -338,7 +334,18 @@ private extension DetailView {
 
 //MARK: IDetailView
 extension DetailView: IDetailView {
-    
+    func setAllView(averagePrice: String, highPrice: Double,
+                    highMarket: String, lowPrice: Double,
+                    lowMarket: String, avaliableAmount: String,
+                    changePercent: Double) {
+        self.avaregePrice.text = "\(averagePrice) $"
+        self.highPrice.text = "\(highPrice) $"
+        self.highMarketLabel.text = highMarket
+        self.lowPrice.text = "\(lowPrice) $"
+        self.lowMarketLabel.text = lowMarket
+        self.avaliableAmount.text = "\(avaliableAmount) pcs"
+        self.changePercent.text = "\(changePercent) %"
+    }
     
 }
 

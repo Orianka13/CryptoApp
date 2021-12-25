@@ -79,14 +79,16 @@ private extension ListPresenter {
     }
     
     func loadDataNetwork() {
-        self.network.loadData { [weak self] (result: Result<ModelDTO, Error>) in
+        let url = self.network.getListUrl()
+        self.network.loadData(url: url) { [weak self] (result: Result<ModelDTO, Error>) in
             switch result {
             case .success(let model):
                 let data = model.data
                 data.forEach() { [weak self] item in
                     let model = ListModel(id: item.id, symbol: item.symbol,
                                           name: item.name, priceUsd: item.priceUsd,
-                                          changePercent24Hr: item.changePercent24Hr)
+                                          changePercent24Hr: item.changePercent24Hr,
+                                          supply: item.supply)
                     self?.data.append(model)
                     self?.tableView?.reloadTableView()
                     self?.setHandlers()

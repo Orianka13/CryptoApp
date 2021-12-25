@@ -35,7 +35,6 @@ final class ListTableView: UIView {
     
     private var tableView: UITableView = UITableView()
   
-    
     var didSelectRowAtHandler: ((IndexPath) -> Void)?
     var numberOfRowsInSectionHandler: (() -> Int)?
     var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)?

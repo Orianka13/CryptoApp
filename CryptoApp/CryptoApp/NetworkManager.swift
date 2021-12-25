@@ -9,7 +9,9 @@ import Foundation
 
 protocol INetworkManager {
    
-    func loadData<T: Decodable>(completion: @escaping (Result<T, Error>) -> Void)
+    func loadData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void)
+    func getListUrl() -> String
+    func getApiKey() -> String
     
 }
 
@@ -17,10 +19,10 @@ final class NetworkManager: INetworkManager {
     
     private enum Literal {
         static let apiKey = "1438444b-c2f3-4d34-97cd-b0becbe7bcf9" //coincap.io
+        static let listUrl = "https://api.coincap.io/v2/assets?apikey=\(Literal.apiKey)"
     }
     
     private let session: URLSession
-
     
     init(configuration: URLSessionConfiguration? = nil) {
         if let configuration = configuration {
@@ -31,8 +33,8 @@ final class NetworkManager: INetworkManager {
         }
     }
 
-    func loadData<T: Decodable>(completion: @escaping (Result<T, Error>) -> Void) {
-        guard let url = URL(string: "https://api.coincap.io/v2/assets?apikey=\(Literal.apiKey)") else { return }
+    func loadData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let url = URL(string: url) else { return }
 
         let request = URLRequest(url: url)
         self.session.dataTask(with: request) { data, response, error in
@@ -51,5 +53,12 @@ final class NetworkManager: INetworkManager {
             }
         }.resume()
     }
-
+    
+    func getListUrl() -> String {
+        return Literal.listUrl
+    }
+    
+    func getApiKey() -> String {
+        return Literal.apiKey
+    }
 }

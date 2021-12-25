@@ -12,7 +12,7 @@ final class ListRouter {
     
     func next(item: ListModel, controller: ListViewController) {
         
-        let targetController = DetailAssembly.build()
+        let targetController = DetailAssembly.build(item: item)
         
         controller.navigationController?.pushViewController(targetController, animated: true)
     }

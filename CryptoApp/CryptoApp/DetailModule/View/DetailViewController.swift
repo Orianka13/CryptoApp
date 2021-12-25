@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IDetailViewController: AnyObject {
-    func setNavBar()
+    func setNavBar(title: String)
 }
 
 final class DetailViewController: UIViewController {
@@ -64,8 +64,8 @@ final class DetailViewController: UIViewController {
 //MARK: IDetailViewController
 extension DetailViewController: IDetailViewController {
     
-    func setNavBar(){
-        self.navigationItem.title = Literal.navigationTitle
+    func setNavBar(title: String){
+        self.navigationItem.title = title
         let rightButton = UIBarButtonItem(image: UIImage(systemName: Literal.imageName), style: .plain, target: self, action: nil)
         rightButton.tintColor = Colors.starColor
         self.navigationItem.rightBarButtonItem = rightButton
