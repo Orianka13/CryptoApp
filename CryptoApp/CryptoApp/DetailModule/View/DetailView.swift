@@ -121,6 +121,7 @@ final class DetailView: UIView {
         label.font = Fonts.textFont
         label.textColor = Colors.textColor
         label.textAlignment = .right
+        label.numberOfLines = 0
         return label
     }()
     
@@ -141,10 +142,9 @@ final class DetailView: UIView {
     }()
     
     private lazy var arrowImage: UIImageView = {
-        let image = UIImage(systemName: Literal.downArrow)
+        let image = UIImage()
         let imageView = UIImageView()
         imageView.image = image
-        imageView.tintColor = Colors.redColor
         return imageView
     }()
     
@@ -321,7 +321,7 @@ private extension DetailView {
         self.avaliableAmount.translatesAutoresizingMaskIntoConstraints = false
         self.avaliableAmount.topAnchor.constraint(equalTo: self.lineView.bottomAnchor, constant: Metrics.normalTopSpacing).isActive = true
         self.avaliableAmount.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.standartSpacing).isActive = true
-        self.avaliableAmount.widthAnchor.constraint(equalToConstant: Metrics.maxWidth).isActive = true
+        self.avaliableAmount.widthAnchor.constraint(equalToConstant: 230).isActive = true
     }
     
     func makeavaliableAmountLabelConstraints() {
@@ -338,13 +338,35 @@ extension DetailView: IDetailView {
                     highMarket: String, lowPrice: Double,
                     lowMarket: String, avaliableAmount: String,
                     changePercent: Double) {
-        self.avaregePrice.text = "\(averagePrice) $"
-        self.highPrice.text = "\(highPrice) $"
+        
+        guard let doubleAvPrice = Double(averagePrice) else { return }
+        let doublePriceText = String(format:"%.3f", doubleAvPrice)
+        self.avaregePrice.text = "\(doublePriceText) $"
+        
+        let highPriceText = String(format:"%.3f", highPrice)
+        self.highPrice.text = "\(highPriceText) $"
+        
         self.highMarketLabel.text = highMarket
-        self.lowPrice.text = "\(lowPrice) $"
+        
+        let lowPriceText = String(format:"%.3f", lowPrice)
+        self.lowPrice.text = "\(lowPriceText) $"
+        
         self.lowMarketLabel.text = lowMarket
-        self.avaliableAmount.text = "\(avaliableAmount) pcs"
-        self.changePercent.text = "\(changePercent) %"
+       
+        guard let intAvAmount = Double(avaliableAmount) else { return }
+        let intAvAmountText = String(format:"%.0f", intAvAmount)
+        self.avaliableAmount.text = "\(intAvAmountText) pcs"
+ 
+        let changePercentText = String(format: "%.2f", changePercent)
+        self.changePercent.text = "\(changePercentText) %"
+
+        if changePercent > 0 {
+            self.arrowImage.image = UIImage(systemName: Literal.upArrow)
+            self.arrowImage.tintColor = Colors.mainColor
+        } else {
+            self.arrowImage.image = UIImage(systemName: Literal.downArrow)
+            self.arrowImage.tintColor = Colors.redColor
+        }
     }
     
 }
