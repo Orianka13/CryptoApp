@@ -95,6 +95,10 @@ private extension ListPresenter {
             self?.filteredData = data
             self?.tableView?.reloadTableView()
         }
+        self.view?.sortHandler = { [weak self] in
+            self?.filteredData.sort(by: { Double($0.getPrice()) ?? 0 > Double($1.getPrice()) ?? 0 })
+            self?.tableView?.reloadTableView()
+        }
     }
     
     

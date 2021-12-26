@@ -29,7 +29,7 @@ final class DetailModel {
     private let changePercent: Double
     
     init(item: ListModel, highPrice: Double, highMarket: String, lowPrice: Double, lowMarket: String){
-        self.id = item.getId()
+        self.id = item.getName()
         self.averagePrice = item.getPrice()
         self.highPrice = highPrice
         self.highMarket = highMarket

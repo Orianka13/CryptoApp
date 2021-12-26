@@ -115,10 +115,14 @@ final class AuthView: UIView {
 private extension AuthView {
     @objc func loginButtonTapped() {
         self.loginHandler?(self.loginField.text, self.passwordField.text)
+        self.loginField.text = ""
+        self.passwordField.text = ""
     }
     
     @objc func registerButtonTapped() {
         self.registerHandler?(self.loginField.text, self.passwordField.text)
+        self.loginField.text = ""
+        self.passwordField.text = ""
     }
 }
 

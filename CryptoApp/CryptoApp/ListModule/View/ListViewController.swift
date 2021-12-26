@@ -19,6 +19,7 @@ final class ListViewController: UIViewController {
     
     private enum Colors {
         static let mainBackgroundColor: UIColor = .black
+        static let starColor: UIColor = .white
     }
     
     private var listView: ListView
@@ -63,6 +64,7 @@ extension ListViewController: IListViewController {
     
     func setNavBar(){
         self.navigationItem.title = Literal.navigationTitle
-        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem?.tintColor = Colors.starColor
     }
 }
