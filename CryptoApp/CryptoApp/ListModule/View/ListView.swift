@@ -9,8 +9,11 @@ import UIKit
 
 protocol IListView {
     func getTableView() -> ListTableView
-    var onTouchedHandler: ((String) -> Void)? { get set }
+    var allHandler: (() -> Void)? { get set }
     var searchBarHandler: ((String) -> Void)? { get set }
+    var favoriteOnHandler: (() -> Void)? { get set }
+    var convertHandler: (() -> Void)? { get set }
+    var sortHandler: (() -> Void)? { get set }
 }
 
 final class ListView: UIView {
@@ -20,9 +23,6 @@ final class ListView: UIView {
         static let tableViewHeight = CGFloat(1.3)
         static let zeroSpacing = CGFloat(0)
         static let buttonSpacing = CGFloat(30)
-        static let buttonCornerRadius = CGFloat(10)
-        static let buttonAlpha = CGFloat(0.3)
-        static let selectedButtonAlpha = CGFloat(1)
         static let hightSV = CGFloat(20)
         static let spacingSV = CGFloat(5)
         
@@ -52,72 +52,30 @@ final class ListView: UIView {
         return searchBar
     }()
     
-    private lazy var allButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(Literal.allButtonName, for: .normal)
-        button.tintColor = Colors.textColor
-        button.backgroundColor = Colors.buttonColor
-        button.layer.cornerRadius = Metrics.buttonCornerRadius
-        button.alpha = Metrics.buttonAlpha
-        button.isSelected = true
-        if button.isSelected {
-            button.alpha = Metrics.selectedButtonAlpha
-        }
-        return button
-    }()
-    private lazy var favoriteButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: Literal.starImage), for: .normal)
-        button.tintColor = Colors.textColor
-        button.backgroundColor = Colors.buttonColor
-        button.layer.cornerRadius = Metrics.buttonCornerRadius
-        button.alpha = Metrics.buttonAlpha
-        return button
-    }()
-    private lazy var sortButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: Literal.sortImage), for: .normal)
-        button.tintColor = Colors.textColor
-        button.backgroundColor = Colors.buttonColor
-        button.layer.cornerRadius = Metrics.buttonCornerRadius
-        button.alpha = Metrics.buttonAlpha
-        return button
-    }()
-    private lazy var convertButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(Literal.convertButtonName, for: .normal)
-        button.tintColor = Colors.textColor
-        button.backgroundColor = Colors.buttonColor
-        button.layer.cornerRadius = Metrics.buttonCornerRadius
-        button.alpha = Metrics.buttonAlpha
-        return button
-    }()
-    
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis  = NSLayoutConstraint.Axis.horizontal
-        stackView.distribution  = UIStackView.Distribution.fillEqually
-        stackView.alignment = UIStackView.Alignment.center
-        stackView.spacing   = Metrics.spacingSV
+    private lazy var segmentedControl: UISegmentedControl = {
+       let segmentedControl = UISegmentedControl(items: [Literal.allButtonName,
+                                                         UIImage(systemName: Literal.starImage) as Any,
+                                                         Literal.convertButtonName,
+                                                         UIImage(systemName: Literal.sortImage) as Any])
+        segmentedControl.addTarget(self, action: #selector(indexChanged), for: .valueChanged)
+        return segmentedControl
         
-        stackView.addArrangedSubview(allButton)
-        stackView.addArrangedSubview(favoriteButton)
-        stackView.addArrangedSubview(convertButton)
-        stackView.addArrangedSubview(sortButton)
-        
-        return stackView
     }()
     
     private var tableView = ListTableView()
     
-    var onTouchedHandler: ((String) -> Void)?
+    var allHandler: (() -> Void)?
     var searchBarHandler: ((String) -> Void)?
+    var favoriteOnHandler: (() -> Void)?
+    var convertHandler: (() -> Void)?
+    var sortHandler: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addView()
         self.setConstraint()
         self.searchBar.delegate = self
+        self.segmentedControl.selectedSegmentIndex = 0
     }
     
     required init?(coder: NSCoder) {
@@ -128,22 +86,36 @@ final class ListView: UIView {
 //MARK: Private extension
 private extension ListView {
     
+    @objc func indexChanged() {
+        switch self.segmentedControl.selectedSegmentIndex {
+        case 0:
+            self.allHandler?()
+        case 1:
+            self.favoriteOnHandler?()
+        case 2:
+            self.convertHandler?()
+        case 3:
+            self.sortHandler?()
+        default:
+            self.allHandler?()
+        }
+    }
+    
     func addView() {
         self.addSubview(tableView)
         self.addSubview(searchBar)
-        
-        self.addSubview(stackView)
+
+        self.addSubview(segmentedControl)
     }
     func setConstraint() {
         self.makeTableViewConstraints()
         self.makeSearchBarConstraints()
-        
-        self.makeStackViewConstraits()
+        self.makeSegmentedControlConstraints()
     }
     
     func makeTableViewConstraints() {
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor, constant: Metrics.spacingSV).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.segmentedControl.bottomAnchor, constant: Metrics.spacingSV).isActive = true
         self.tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
         self.tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.buttonSpacing).isActive = true
         self.tableView.heightAnchor.constraint(equalToConstant: self.frame.size.height / Metrics.tableViewHeight).isActive = true
@@ -156,13 +128,12 @@ private extension ListView {
         self.searchBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.standartSpacing).isActive = true
     }
     
-    func makeStackViewConstraits() {
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
-        self.stackView.widthAnchor.constraint(equalToConstant: 50).isActive = false
-        self.stackView.heightAnchor.constraint(equalToConstant: Metrics.hightSV).isActive = true
-        self.stackView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor, constant: Metrics.spacingSV).isActive = true
-        self.stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.buttonSpacing).isActive = true
-        self.stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.buttonSpacing).isActive = true
+    func makeSegmentedControlConstraints() {
+        self.segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        self.segmentedControl.heightAnchor.constraint(equalToConstant: Metrics.hightSV).isActive = true
+        self.segmentedControl.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor, constant: Metrics.spacingSV).isActive = true
+        self.segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.buttonSpacing).isActive = true
+        self.segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.buttonSpacing).isActive = true
     }
 }
 

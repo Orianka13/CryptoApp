@@ -10,9 +10,9 @@ import UIKit
 
 final class ListRouter {
     
-    func next(item: ListModel, controller: ListViewController) {
+    func next(item: ListModel, user: AuthModel, controller: ListViewController) {
         
-        let targetController = DetailAssembly.build(item: item)
+        let targetController = DetailAssembly.build(item: item, user: user)
         
         controller.navigationController?.pushViewController(targetController, animated: true)
     }

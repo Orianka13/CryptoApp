@@ -10,12 +10,12 @@ import Foundation
 final class DetailAssembly {
     
     
-    static func build(item: ListModel) -> DetailViewController {
+    static func build(item: ListModel, user: AuthModel) -> DetailViewController {
         
         let router = DetailRouter()
         let network = NetworkManager()
         
-        let presenter = DetailPresenter(dependencies: .init(router: router, network: network, item: item))
+        let presenter = DetailPresenter(dependencies: .init(router: router, network: network, item: item, user: user))
         let controller = DetailViewController(dependencies: .init(presenter: presenter))
         
         return controller

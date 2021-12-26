@@ -38,6 +38,9 @@
 		593409462775CE6D00E0974E /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409452775CE6D00E0974E /* DetailAssembly.swift */; };
 		593409482775CE7600E0974E /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409472775CE7600E0974E /* DetailRouter.swift */; };
 		5934094A2775D34900E0974E /* DetailModelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409492775D34900E0974E /* DetailModelDTO.swift */; };
+		59D985872778911F0078DD00 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985862778911F0078DD00 /* FilterModel.swift */; };
+		59D985922778B0580078DD00 /* FilterItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */; };
+		59D985932778B0580078DD00 /* FilterItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +77,9 @@
 		593409452775CE6D00E0974E /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
 		593409472775CE7600E0974E /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		593409492775D34900E0974E /* DetailModelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModelDTO.swift; sourceTree = "<group>"; };
+		59D985862778911F0078DD00 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
+		59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +142,7 @@
 		5934091B2773801900E0974E /* ListModule */ = {
 			isa = PBXGroup;
 			children = (
+				59D985862778911F0078DD00 /* FilterModel.swift */,
 				5934091C2773809200E0974E /* ListModel.swift */,
 				5934093A2774B56B00E0974E /* ModelDTO.swift */,
 				5934092C2773870C00E0974E /* View */,
@@ -162,6 +169,8 @@
 			children = (
 				593409002773500B00E0974E /* CryptoApp.xcdatamodeld */,
 				5934090E2773515600E0974E /* CoreDataStack.swift */,
+				59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */,
+				59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */,
 				5934093727747E7D00E0974E /* User+CoreDataProperties.swift */,
 				5934093627747E7D00E0974E /* User+CoreDataClass.swift */,
 			);
@@ -283,6 +292,7 @@
 				5934091A2773534C00E0974E /* AuthRouter.swift in Sources */,
 				593409142773525900E0974E /* AuthModel.swift in Sources */,
 				59340927277380C900E0974E /* ListRouter.swift in Sources */,
+				59D985872778911F0078DD00 /* FilterModel.swift in Sources */,
 				593409182773527E00E0974E /* AuthAssembly.swift in Sources */,
 				593408FC2773500B00E0974E /* AuthViewController.swift in Sources */,
 				593409402775CE4E00E0974E /* DetailViewController.swift in Sources */,
@@ -295,7 +305,9 @@
 				593409162773526200E0974E /* AuthView.swift in Sources */,
 				593409442775CE6200E0974E /* DetailPresenter.swift in Sources */,
 				5934091D2773809200E0974E /* ListModel.swift in Sources */,
+				59D985922778B0580078DD00 /* FilterItem+CoreDataClass.swift in Sources */,
 				593409462775CE6D00E0974E /* DetailAssembly.swift in Sources */,
+				59D985932778B0580078DD00 /* FilterItem+CoreDataProperties.swift in Sources */,
 				593408FA2773500B00E0974E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,17 +15,18 @@ final class CoreDataStack {
         let container = NSPersistentContainer(name: "CryptoApp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                fatalError("ОШИБКА БЛЕАТ \(error), \(error.userInfo)")
             }
         })
         return container
     }()
-
+    
     func saveContext () {
-        let context = persistentContainer.viewContext
+        let context = self.persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
+                print("CONTEXT SAVED")
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -35,6 +36,29 @@ final class CoreDataStack {
 }
 
 extension CoreDataStack {
+    
+    func create(currencyId: String, userId: UUID) {
+        let context = self.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "\(#keyPath(User.uid)) = '\(userId)'")
+        guard let user = try? context.fetch(fetchRequest).first else { return }
+        let object = FilterItem(context: context)
+        object.itemId = currencyId
+        object.userId = userId
+        object.holder = user
+        self.saveContext()
+    }
+    
+        func getCurrency(for user: AuthModel) -> [FilterModel] {
+            let fetchRequest: NSFetchRequest<FilterItem> = FilterItem.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "ANY holder.uid = '\(user.getUid())'")
+            return (try? self.persistentContainer.viewContext.fetch(fetchRequest).compactMap { FilterModel(currency: $0) }) ?? []
+        }
+}
+
+//MARK: Authorization
+
+extension CoreDataStack {
     func getUser(login: String, password: String) -> AuthModel? {
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         let md5Password = MD5(string: password)
@@ -42,16 +66,16 @@ extension CoreDataStack {
         guard let object = try? self.persistentContainer.viewContext.fetch(fetchRequest).first else { return nil }
         return AuthModel(user: object)
     }
-
+    
     func saveUser(user: AuthModel, completion: @escaping () -> Void) {
         self.persistentContainer.performBackgroundTask { [weak self] context in
             let object = User(context: context)
-            object.uid = user.uid
-            object.login = user.login
-            guard let md5Password = self?.MD5(string: user.password) else { return }
+            object.uid = user.getUid()
+            object.login = user.getLogin()
+            guard let md5Password = self?.MD5(string: user.getPassword()) else { return }
             object.password = md5Password
             try? context.save()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { completion() })
+            DispatchQueue.main.async{ completion() }
         }
     }
     

@@ -9,6 +9,7 @@ import UIKit
 
 protocol IDetailViewController: AnyObject {
     func setNavBar(title: String)
+    var addToFavoriteHandler: (() -> Void)? { get set }
 }
 
 final class DetailViewController: UIViewController {
@@ -23,6 +24,8 @@ final class DetailViewController: UIViewController {
         static let mainColor = UIColor(red: 103/255, green: 222/255, blue: 165/255, alpha: 1)
         static let starColor: UIColor = .white
     }
+    
+    var addToFavoriteHandler: (() -> Void)?
     
     private var detailView: DetailView
     private var presenter: IDetailPresenter?
@@ -59,6 +62,10 @@ final class DetailViewController: UIViewController {
         self.view.backgroundColor = Colors.mainBackgroundColor
     }
     
+    @objc private func addToFavorite(){
+        self.addToFavoriteHandler?()
+    }
+    
 }
 
 //MARK: IDetailViewController
@@ -66,7 +73,7 @@ extension DetailViewController: IDetailViewController {
     
     func setNavBar(title: String){
         self.navigationItem.title = title
-        let rightButton = UIBarButtonItem(image: UIImage(systemName: Literal.imageName), style: .plain, target: self, action: nil)
+        let rightButton = UIBarButtonItem(image: UIImage(systemName: Literal.imageName), style: .plain, target: self, action: #selector(addToFavorite))
         rightButton.tintColor = Colors.starColor
         self.navigationItem.rightBarButtonItem = rightButton
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

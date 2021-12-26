@@ -24,7 +24,10 @@ final class DetailPresenter {
     private var network: INetworkManager
     private let coreDS = CoreDataStack()
     private var router: DetailRouter
+    
     private let item: ListModel
+    private let user: AuthModel
+    
     private var priceArray = [Double]()
     private var markets = [String]()
     
@@ -34,12 +37,14 @@ final class DetailPresenter {
         let router: DetailRouter
         let network: INetworkManager
         let item: ListModel
+        let user: AuthModel
     }
     
     init(dependencies: Dependencies) {
         self.router = dependencies.router
         self.network = dependencies.network
         self.item = dependencies.item
+        self.user = dependencies.user
     }
     
 }
@@ -47,12 +52,14 @@ final class DetailPresenter {
 //MARK: Private extension
 private extension DetailPresenter {
     func setHandlers() {
-        
-    }
-    
-    private func getContext() -> NSManagedObjectContext {
-        return self.coreDS.persistentContainer.viewContext
-        
+        self.controller?.addToFavoriteHandler = { [weak self] in
+            guard let currencyId = self?.item.getId() else { return }
+            print("CURENCY ID IS \(currencyId)")
+            guard let userId = self?.user.getUid() else { return }
+            print("USER ID IS \(userId)")
+                    
+            self?.coreDS.create(currencyId: currencyId, userId: userId)
+        }
     }
     
     func loadDataNetwork() {
@@ -95,7 +102,7 @@ private extension DetailPresenter {
                                                avaliableAmount: model.getAvaliableAmount(),
                                                changePercent: model.getChangePercent())
                     }
-                    self?.setHandlers()
+                 
                 }
                 
                 DispatchQueue.main.async {
@@ -123,5 +130,7 @@ extension DetailPresenter: IDetailPresenter {
         self.loadDataNetwork()
         
         self.controller?.setNavBar(title: item.getName())
+        
+        self.setHandlers()
     }
 }

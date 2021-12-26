@@ -25,19 +25,22 @@ final class ListPresenter {
     private var tableView: ListTableView?
     private let coreDS = CoreDataStack()
     private var router: ListRouter
+    private let user: AuthModel
     
     private var data = [ListModel]()
     private var filteredData = [ListModel]()
+    private var favoriteData = [ListModel]()
     
     struct Dependencies {
         let router: ListRouter
         let network: INetworkManager
+        let user: AuthModel
     }
     
     init(dependencies: Dependencies) {
         self.router = dependencies.router
         self.network = dependencies.network
-        
+        self.user = dependencies.user
     }
     
 }
@@ -48,8 +51,9 @@ private extension ListPresenter {
         
         self.tableView?.didSelectRowAtHandler = { [weak self] indexPath in
             guard let item = self?.data[indexPath.row] else { return }
+            guard let user = self?.user else { return }
             guard let controller = self?.controller else { return }
-            self?.router.next(item: item, controller: controller)
+            self?.router.next(item: item, user: user, controller: controller)
         }
         
         self.tableView?.cellForRowAtHandler = { cell, indexPath in
@@ -70,6 +74,27 @@ private extension ListPresenter {
             })
             self?.tableView?.reloadTableView()
         }
+        
+        self.view?.favoriteOnHandler = { [weak self] in
+            guard let user = self?.user else { return }
+            guard let filterFavoriteData = self?.coreDS.getCurrency(for: user) else { return }
+            guard let data = self?.data else { return }
+            
+            
+            self?.filteredData = data.filter({(dataItem: ListModel) -> Bool in
+                let dataId = dataItem.getId()
+                return filterFavoriteData.contains(where: { (itemId: FilterModel) -> Bool in
+                    self?.tableView?.reloadTableView()
+                    return dataId == itemId.getCurrencyId();
+                })
+            })
+        }
+        
+        self.view?.allHandler = { [weak self] in
+            guard let data = self?.data else { return }
+            self?.filteredData = data
+            self?.tableView?.reloadTableView()
+        }
     }
     
     
@@ -85,10 +110,17 @@ private extension ListPresenter {
             case .success(let model):
                 let data = model.data
                 data.forEach() { [weak self] item in
-                    let model = ListModel(id: item.id, symbol: item.symbol,
-                                          name: item.name, priceUsd: item.priceUsd,
-                                          changePercent24Hr: item.changePercent24Hr,
-                                          supply: item.supply)
+                    let itemId = item.id ?? "0"
+                    let symbol = item.symbol ?? "0"
+                    let name = item.name ?? "No name"
+                    let price = item.priceUsd ?? "0"
+                    let percent = item.changePercent24Hr ?? "0"
+                    let supply = item.supply ?? "0"
+                    
+                    let model = ListModel(id: itemId, symbol: symbol,
+                                          name: name, priceUsd: price,
+                                          changePercent24Hr: percent,
+                                          supply: supply)
                     self?.data.append(model)
                     self?.tableView?.reloadTableView()
                     self?.setHandlers()

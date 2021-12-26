@@ -12,7 +12,7 @@ final class AuthRouter {
     
     func next(user: AuthModel, controller: AuthViewController) {
         
-        let targetController = ListAssembly.build()
+        let targetController = ListAssembly.build(user: user)
         
         controller.navigationController?.pushViewController(targetController, animated: true)
     }

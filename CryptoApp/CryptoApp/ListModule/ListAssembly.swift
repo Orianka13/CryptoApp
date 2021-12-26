@@ -11,12 +11,12 @@ import UIKit
 final class ListAssembly {
     
     
-    static func build() -> ListViewController {
+    static func build(user: AuthModel) -> ListViewController {
         
         let router = ListRouter()
         let network = NetworkManager()
         
-        let presenter = ListPresenter(dependencies: .init(router: router, network: network))
+        let presenter = ListPresenter(dependencies: .init(router: router, network: network, user: user))
         let controller = ListViewController(dependencies: .init(presenter: presenter))
         
         return controller

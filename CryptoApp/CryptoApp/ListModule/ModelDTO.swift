@@ -13,9 +13,9 @@ struct ModelDTO: Decodable {
 }
 
 struct DataClass: Decodable {
-    let id, rank, symbol, name: String
+    let id, rank, symbol, name: String?
     let maxSupply: String?
-    let supply, marketCapUsd, volumeUsd24Hr: String
-    let priceUsd, changePercent24Hr: String
+    let supply, marketCapUsd, volumeUsd24Hr: String?
+    let priceUsd, changePercent24Hr: String?
     let vwap24Hr: String?
 }
