@@ -10,10 +10,17 @@ import UIKit
 
 final class ListRouter {
     
-    func next(item: ListModel, user: AuthModel, controller: ListViewController) {
+    func nextDetailModule(item: ListModel, user: AuthModel, controller: ListViewController) {
         
         let targetController = DetailAssembly.build(item: item, user: user)
         
         controller.navigationController?.pushViewController(targetController, animated: true)
+    }
+    
+    func nextConverterModule(controller: ListViewController) {
+        
+        let targetController = ConvertAssembly.build()
+        
+        controller.navigationController?.present(targetController, animated: true)
     }
 }

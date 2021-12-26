@@ -23,7 +23,7 @@ final class ListView: UIView {
         static let tableViewHeight = CGFloat(1.3)
         static let zeroSpacing = CGFloat(0)
         static let buttonSpacing = CGFloat(30)
-        static let hightSV = CGFloat(20)
+        static let hightSV = CGFloat(30)
         static let spacingSV = CGFloat(5)
         
     }
@@ -34,7 +34,8 @@ final class ListView: UIView {
     
     private enum Colors {
         static let textColor: UIColor = .white
-        static let buttonColor: UIColor = .darkGray
+        static let searchTFColor = UIColor(red: 41/255, green: 41/255, blue: 41/255, alpha: 1)
+        static let selected: UIColor = .black
     }
     
     private enum Literal {
@@ -47,6 +48,7 @@ final class ListView: UIView {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.barTintColor = .black
+        searchBar.searchTextField.backgroundColor = Colors.searchTFColor
         searchBar.searchTextField.textColor = Colors.textColor
         searchBar.searchTextField.font = Fonts.textFont
         return searchBar
@@ -58,6 +60,9 @@ final class ListView: UIView {
                                                          Literal.convertButtonName,
                                                          UIImage(systemName: Literal.sortImage) as Any])
         segmentedControl.addTarget(self, action: #selector(indexChanged), for: .valueChanged)
+        segmentedControl.backgroundColor = Colors.searchTFColor
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Colors.textColor], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Colors.selected], for: .selected)
         return segmentedControl
         
     }()

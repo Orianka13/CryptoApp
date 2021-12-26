@@ -21,6 +21,9 @@ final class ListViewController: UIViewController {
         static let mainBackgroundColor: UIColor = .black
         static let starColor: UIColor = .white
     }
+    private enum Fonts {
+        static let titleFont = UIFont(name: "HiraginoSans-W3", size: 16)
+    }
     
     private var listView: ListView
     private var presenter: IListPresenter?
@@ -65,6 +68,9 @@ extension ListViewController: IListViewController {
     func setNavBar(){
         self.navigationItem.title = Literal.navigationTitle
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: nil, action: nil)
+        
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.titleFont ?? .systemFont(ofSize: 20)], for: .normal)
+        
         self.navigationController?.navigationBar.topItem?.backBarButtonItem?.tintColor = Colors.starColor
     }
 }

@@ -41,6 +41,12 @@
 		59D985872778911F0078DD00 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985862778911F0078DD00 /* FilterModel.swift */; };
 		59D985922778B0580078DD00 /* FilterItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */; };
 		59D985932778B0580078DD00 /* FilterItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */; };
+		59D985962778E3AF0078DD00 /* ConvertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985952778E3AF0078DD00 /* ConvertModel.swift */; };
+		59D985982778E3D20078DD00 /* ConvertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985972778E3D20078DD00 /* ConvertView.swift */; };
+		59D9859A2778E3DE0078DD00 /* ConvertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985992778E3DE0078DD00 /* ConvertViewController.swift */; };
+		59D9859C2778E3EA0078DD00 /* ConvertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D9859B2778E3EA0078DD00 /* ConvertPresenter.swift */; };
+		59D9859E2778E3FB0078DD00 /* ConvertAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D9859D2778E3FB0078DD00 /* ConvertAssembly.swift */; };
+		59D985A22778E4830078DD00 /* DTOConvertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985A12778E4830078DD00 /* DTOConvertModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +86,12 @@
 		59D985862778911F0078DD00 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		59D985952778E3AF0078DD00 /* ConvertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertModel.swift; sourceTree = "<group>"; };
+		59D985972778E3D20078DD00 /* ConvertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertView.swift; sourceTree = "<group>"; };
+		59D985992778E3DE0078DD00 /* ConvertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertViewController.swift; sourceTree = "<group>"; };
+		59D9859B2778E3EA0078DD00 /* ConvertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPresenter.swift; sourceTree = "<group>"; };
+		59D9859D2778E3FB0078DD00 /* ConvertAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertAssembly.swift; sourceTree = "<group>"; };
+		59D985A12778E4830078DD00 /* DTOConvertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOConvertModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +131,7 @@
 				593409102773521900E0974E /* AuthModule */,
 				5934091B2773801900E0974E /* ListModule */,
 				5934093C2775CDF000E0974E /* DetailModule */,
+				59D985942778E3670078DD00 /* ConverterModule */,
 				593409032773500E00E0974E /* Assets.xcassets */,
 				593409052773500E00E0974E /* LaunchScreen.storyboard */,
 				593409082773500E00E0974E /* Info.plist */,
@@ -207,6 +220,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		59D985942778E3670078DD00 /* ConverterModule */ = {
+			isa = PBXGroup;
+			children = (
+				59D985952778E3AF0078DD00 /* ConvertModel.swift */,
+				59D985A12778E4830078DD00 /* DTOConvertModel.swift */,
+				59D985972778E3D20078DD00 /* ConvertView.swift */,
+				59D985992778E3DE0078DD00 /* ConvertViewController.swift */,
+				59D9859B2778E3EA0078DD00 /* ConvertPresenter.swift */,
+				59D9859D2778E3FB0078DD00 /* ConvertAssembly.swift */,
+			);
+			path = ConverterModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -279,29 +305,35 @@
 			files = (
 				5934092E27738DD900E0974E /* NetworkManager.swift in Sources */,
 				59340923277380B400E0974E /* ListPresenter.swift in Sources */,
+				59D9859A2778E3DE0078DD00 /* ConvertViewController.swift in Sources */,
 				5934090F2773515600E0974E /* CoreDataStack.swift in Sources */,
 				59340925277380BF00E0974E /* ListAssembly.swift in Sources */,
 				5934093E2775CE4100E0974E /* DetailModel.swift in Sources */,
 				593409482775CE7600E0974E /* DetailRouter.swift in Sources */,
 				593409292773811100E0974E /* ListTableView.swift in Sources */,
 				59340921277380A900E0974E /* ListView.swift in Sources */,
+				59D9859E2778E3FB0078DD00 /* ConvertAssembly.swift in Sources */,
 				5934092B2773811D00E0974E /* ListTableViewCell.swift in Sources */,
 				593409422775CE5700E0974E /* DetailView.swift in Sources */,
 				593409022773500B00E0974E /* CryptoApp.xcdatamodeld in Sources */,
 				5934091F277380A000E0974E /* ListViewController.swift in Sources */,
 				5934091A2773534C00E0974E /* AuthRouter.swift in Sources */,
+				59D9859C2778E3EA0078DD00 /* ConvertPresenter.swift in Sources */,
 				593409142773525900E0974E /* AuthModel.swift in Sources */,
+				59D985982778E3D20078DD00 /* ConvertView.swift in Sources */,
 				59340927277380C900E0974E /* ListRouter.swift in Sources */,
 				59D985872778911F0078DD00 /* FilterModel.swift in Sources */,
 				593409182773527E00E0974E /* AuthAssembly.swift in Sources */,
 				593408FC2773500B00E0974E /* AuthViewController.swift in Sources */,
 				593409402775CE4E00E0974E /* DetailViewController.swift in Sources */,
+				59D985A22778E4830078DD00 /* DTOConvertModel.swift in Sources */,
 				5934093827747E7D00E0974E /* User+CoreDataClass.swift in Sources */,
 				593408F82773500B00E0974E /* AppDelegate.swift in Sources */,
 				593409122773524F00E0974E /* AuthPresenter.swift in Sources */,
 				5934093B2774B56C00E0974E /* ModelDTO.swift in Sources */,
 				5934094A2775D34900E0974E /* DetailModelDTO.swift in Sources */,
 				5934093927747E7D00E0974E /* User+CoreDataProperties.swift in Sources */,
+				59D985962778E3AF0078DD00 /* ConvertModel.swift in Sources */,
 				593409162773526200E0974E /* AuthView.swift in Sources */,
 				593409442775CE6200E0974E /* DetailPresenter.swift in Sources */,
 				5934091D2773809200E0974E /* ListModel.swift in Sources */,

@@ -8,8 +8,8 @@
 import Foundation
 
 struct ModelDTO: Decodable {
-    let data: [DataClass]
-    let timestamp: Int
+    let data: [DataClass]?
+    let timestamp: Int?
 }
 
 struct DataClass: Decodable {

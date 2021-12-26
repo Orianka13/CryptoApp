@@ -53,7 +53,7 @@ private extension ListPresenter {
             guard let item = self?.data[indexPath.row] else { return }
             guard let user = self?.user else { return }
             guard let controller = self?.controller else { return }
-            self?.router.next(item: item, user: user, controller: controller)
+            self?.router.nextDetailModule(item: item, user: user, controller: controller)
         }
         
         self.tableView?.cellForRowAtHandler = { cell, indexPath in
@@ -99,6 +99,12 @@ private extension ListPresenter {
             self?.filteredData.sort(by: { Double($0.getPrice()) ?? 0 > Double($1.getPrice()) ?? 0 })
             self?.tableView?.reloadTableView()
         }
+        
+        self.view?.convertHandler = { [weak self] in
+            guard let controller = self?.controller else { return }
+            self?.router.nextConverterModule(controller: controller)
+        }
+        
     }
     
     
@@ -112,7 +118,7 @@ private extension ListPresenter {
         self.network.loadData(url: url) { [weak self] (result: Result<ModelDTO, Error>) in
             switch result {
             case .success(let model):
-                let data = model.data
+                guard let data = model.data else { return }
                 data.forEach() { [weak self] item in
                     let itemId = item.id ?? "0"
                     let symbol = item.symbol ?? "0"
@@ -136,7 +142,8 @@ private extension ListPresenter {
                 self?.filteredData = data
                 
                 DispatchQueue.main.async {
-                    print("Загрузка закончена \(model.timestamp)")
+                    guard let timeStamp = model.timestamp else { return }
+                    print("Загрузка закончена \(timeStamp)")
                 }
             case .failure(let error):
                 print("[NETWORK] error is: \(error)")
