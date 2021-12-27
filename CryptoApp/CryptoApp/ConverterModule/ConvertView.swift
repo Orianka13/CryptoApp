@@ -13,6 +13,15 @@ protocol IConvertView {
     var showPickerCryptoHandler: (() -> Void)? { get set }
     var showPickerCurrencyHandler: (() -> Void)? { get set }
     var convertHandler: (() -> Void)? { get set }
+    var pickerTitleHandler: ((Int) -> String)? { get set }
+    var pickerDidSelectHandler: ((Int) -> Void)? { get set }
+    func setCryptoTF(title: String)
+    var pickerCountHandler: (() -> Int)? { get set }
+    
+    var picker2TitleHandler: ((Int) -> String)? { get set }
+    var picker2DidSelectHandler: ((Int) -> Void)? { get set }
+    func setCurrencyTF(title: String)
+    var picker2CountHandler: (() -> Int)? { get set }
 }
 
 final class ConvertView: UIView {
@@ -111,11 +120,6 @@ final class ConvertView: UIView {
         return tf
     }()
     
-    private lazy var pickerView: UIPickerView = {
-        let picker = UIPickerView()
-        return picker
-    }()
-    
     private lazy var convertButton: UIButton = {
         let button = UIButton()
         button.setTitle(Literal.buttonTitle, for: .normal)
@@ -125,15 +129,26 @@ final class ConvertView: UIView {
         return button
     }()
     
+    private(set) var elementPicker1 = UIPickerView()
+    private(set) var elementPicker2 = UIPickerView()
+    
     var goBackHandler: (() -> Void)?
     var showPickerCryptoHandler: (() -> Void)?
     var showPickerCurrencyHandler: (() -> Void)?
     var convertHandler: (() -> Void)?
+    var pickerTitleHandler: ((Int) -> String)?
+    var pickerDidSelectHandler: ((Int) -> Void)?
+    var pickerCountHandler: (() -> Int)?
+    
+    var picker2TitleHandler: ((Int) -> String)?
+    var picker2DidSelectHandler: ((Int) -> Void)?
+    var picker2CountHandler: (() -> Int)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addView()
         self.setConstraint()
+        self.choicePoint()
     }
     
     required init?(coder: NSCoder) {
@@ -183,6 +198,18 @@ private extension ConvertView {
     
     @objc func convertButtonTapped() {
         self.convertHandler?()
+    }
+    
+    func choicePoint() {
+        self.elementPicker1.delegate = self
+        self.elementPicker1.dataSource = self
+        self.chooseCriptoTF.inputView = self.elementPicker1
+        self.elementPicker1.tag = 1
+        
+        self.elementPicker2.delegate = self
+        self.elementPicker2.dataSource = self
+        self.chooseCurrencyTF.inputView = self.elementPicker2
+        self.elementPicker2.tag = 2
     }
 }
 
@@ -258,5 +285,11 @@ private extension ConvertView {
 
 //MARK: IAuthView
 extension ConvertView: IConvertView {
+    func setCryptoTF(title: String) {
+        self.chooseCriptoTF.text = title
+    }
     
+    func setCurrencyTF(title: String) {
+        self.chooseCurrencyTF.text = title
+    }
 }

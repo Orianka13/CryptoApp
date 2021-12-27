@@ -41,6 +41,7 @@
 		599C49762779C731004C3438 /* ConvertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599C49752779C731004C3438 /* ConvertModel.swift */; };
 		599C49782779C749004C3438 /* CurrencyDTOModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599C49772779C749004C3438 /* CurrencyDTOModel.swift */; };
 		599C497A2779C75C004C3438 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599C49792779C75C004C3438 /* CryptoModel.swift */; };
+		599C497C2779C90E004C3438 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599C497B2779C90E004C3438 /* PickerView.swift */; };
 		59D985872778911F0078DD00 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985862778911F0078DD00 /* FilterModel.swift */; };
 		59D985922778B0580078DD00 /* FilterItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */; };
 		59D985932778B0580078DD00 /* FilterItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */; };
@@ -87,6 +88,7 @@
 		599C49752779C731004C3438 /* ConvertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvertModel.swift; path = CryptoApp/ConverterModule/ConvertModel.swift; sourceTree = SOURCE_ROOT; };
 		599C49772779C749004C3438 /* CurrencyDTOModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyDTOModel.swift; path = CryptoApp/ConverterModule/CurrencyDTOModel.swift; sourceTree = SOURCE_ROOT; };
 		599C49792779C75C004C3438 /* CryptoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CryptoModel.swift; path = CryptoApp/ConverterModule/CryptoModel.swift; sourceTree = SOURCE_ROOT; };
+		599C497B2779C90E004C3438 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		59D985862778911F0078DD00 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		59D985902778B0580078DD00 /* FilterItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		59D985912778B0580078DD00 /* FilterItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilterItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				599C49772779C749004C3438 /* CurrencyDTOModel.swift */,
 				59D985972778E3D20078DD00 /* ConvertView.swift */,
 				59D985992778E3DE0078DD00 /* ConvertViewController.swift */,
+				599C497B2779C90E004C3438 /* PickerView.swift */,
 				59D9859B2778E3EA0078DD00 /* ConvertPresenter.swift */,
 				59D9859D2778E3FB0078DD00 /* ConvertAssembly.swift */,
 			);
@@ -334,6 +337,7 @@
 				593409402775CE4E00E0974E /* DetailViewController.swift in Sources */,
 				5934093827747E7D00E0974E /* User+CoreDataClass.swift in Sources */,
 				593408F82773500B00E0974E /* AppDelegate.swift in Sources */,
+				599C497C2779C90E004C3438 /* PickerView.swift in Sources */,
 				593409122773524F00E0974E /* AuthPresenter.swift in Sources */,
 				5934093B2774B56C00E0974E /* ModelDTO.swift in Sources */,
 				5934094A2775D34900E0974E /* DetailModelDTO.swift in Sources */,
