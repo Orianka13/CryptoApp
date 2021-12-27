@@ -82,11 +82,17 @@ private extension ListPresenter {
             
             
             self?.filteredData = data.filter({(dataItem: ListModel) -> Bool in
-                let dataId = dataItem.getId()
-                return filterFavoriteData.contains(where: { (itemId: FilterModel) -> Bool in
-                    self?.tableView?.reloadTableView()
-                    return dataId == itemId.getCurrencyId();
-                })
+                if filterFavoriteData.isEmpty {
+                    guard let data = self?.data else { return true }
+                    self?.filteredData = data
+                } else {
+                    let dataId = dataItem.getId()
+                    return filterFavoriteData.contains(where: { (itemId: FilterModel) -> Bool in
+                        self?.tableView?.reloadTableView()
+                        return dataId == itemId.getCurrencyId();
+                    })
+                }
+                return true
             })
         }
         
