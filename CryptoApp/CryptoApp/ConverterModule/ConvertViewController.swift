@@ -44,6 +44,10 @@ final class ConvertViewController: UIViewController {
         self.view.addSubview(convertView)
         self.view.backgroundColor = Colors.mainBackgroundColor
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
 }
 
 //MARK: IConvertViewController
