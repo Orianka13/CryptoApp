@@ -22,6 +22,9 @@ protocol IConvertView {
     var picker2DidSelectHandler: ((Int) -> Void)? { get set }
     func setCurrencyTF(title: String)
     var picker2CountHandler: (() -> Int)? { get set }
+    func getConvertValue() -> Double
+    func setConvertText(convertValue: Double)
+    func setSymbolTitle(currency: String, crypto: String)
 }
 
 final class ConvertView: UIView {
@@ -50,6 +53,7 @@ final class ConvertView: UIView {
         static let minSpacing = CGFloat(1)
         static let smallWidth = CGFloat(50)
         static let bigWidth = CGFloat(100)
+        static let topSpacing = CGFloat(70)
     }
     
     private enum Colors {
@@ -85,7 +89,7 @@ final class ConvertView: UIView {
     private lazy var chooseCriptoTF: UITextField = {
         let tf = UITextField()
         tf.addTarget(self, action: #selector(showPickerView), for: .touchUpInside)
-        tf.text = "BTC"
+        //tf.text = "BTC"
         tf.textColor = Colors.mainColor
         tf.font = Fonts.textFont
         return tf
@@ -93,7 +97,7 @@ final class ConvertView: UIView {
     
     private lazy var setAmountCriptoTF: UITextField = {
         let tf = UITextField()
-        tf.text = "123456"
+        tf.placeholder = "   Enter amount"
         tf.textColor = Colors.textColor
         tf.backgroundColor = Colors.tintColor
         tf.layer.cornerRadius = Metrics.cornerRadius
@@ -104,7 +108,7 @@ final class ConvertView: UIView {
     private lazy var chooseCurrencyTF: UITextField = {
         let tf = UITextField()
         tf.addTarget(self, action: #selector(showCurrencyPickerView), for: .touchUpInside)
-        tf.text = "RUB"
+        //tf.text = "RUB"
         tf.textColor = Colors.mainColor
         tf.font = Fonts.textFont
         return tf
@@ -112,7 +116,7 @@ final class ConvertView: UIView {
     
     private lazy var setAmountCurrencyTF: UITextField = {
         let tf = UITextField()
-        tf.text = "456 7899"
+        tf.placeholder = "..."
         tf.textColor = Colors.textColor
         tf.backgroundColor = Colors.tintColor
         tf.layer.cornerRadius = Metrics.cornerRadius
@@ -205,11 +209,13 @@ private extension ConvertView {
         self.elementPicker1.dataSource = self
         self.chooseCriptoTF.inputView = self.elementPicker1
         self.elementPicker1.tag = 1
+        self.elementPicker1.backgroundColor = .white
         
         self.elementPicker2.delegate = self
         self.elementPicker2.dataSource = self
         self.chooseCurrencyTF.inputView = self.elementPicker2
         self.elementPicker2.tag = 2
+        self.elementPicker2.backgroundColor = .white
     }
 }
 
@@ -227,7 +233,7 @@ private extension ConvertView {
     
     private func makeFromLabelConstraints() {
         self.fromLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.fromLabel.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: Metrics.bigTopSpacing).isActive = true
+        self.fromLabel.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: Metrics.topSpacing).isActive = true
         self.fromLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
         self.fromLabel.widthAnchor.constraint(equalToConstant: Metrics.smallWidth).isActive = true
     }
@@ -285,6 +291,21 @@ private extension ConvertView {
 
 //MARK: IAuthView
 extension ConvertView: IConvertView {
+    func setSymbolTitle(currency: String, crypto: String) {
+        self.chooseCriptoTF.text = crypto
+        self.chooseCurrencyTF.text = currency
+    }
+    
+    func setConvertText(convertValue: Double) {
+        self.setAmountCurrencyTF.text = String(format: "%.2f", convertValue)
+    }
+    
+    func getConvertValue() -> Double {
+        let text = self.setAmountCriptoTF.text ?? "0"
+        let doubleText = Double(text) ?? 0
+        return doubleText
+    }
+    
     func setCryptoTF(title: String) {
         self.chooseCriptoTF.text = title
     }
