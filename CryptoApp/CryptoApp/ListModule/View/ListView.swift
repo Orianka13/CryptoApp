@@ -55,10 +55,10 @@ final class ListView: UIView {
     }()
     
     private lazy var segmentedControl: UISegmentedControl = {
-       let segmentedControl = UISegmentedControl(items: [Literal.allButtonName,
-                                                         UIImage(systemName: Literal.starImage) as Any,
-                                                         Literal.convertButtonName,
-                                                         UIImage(systemName: Literal.sortImage) as Any])
+        let segmentedControl = UISegmentedControl(items: [Literal.allButtonName,
+                                                          UIImage(systemName: Literal.starImage) as Any,
+                                                          Literal.convertButtonName,
+                                                          UIImage(systemName: Literal.sortImage) as Any])
         segmentedControl.addTarget(self, action: #selector(indexChanged), for: .valueChanged)
         segmentedControl.backgroundColor = Colors.searchTFColor
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: Colors.textColor], for: .normal)
@@ -109,7 +109,6 @@ private extension ListView {
     func addView() {
         self.addSubview(tableView)
         self.addSubview(searchBar)
-
         self.addSubview(segmentedControl)
     }
     func setConstraint() {
@@ -144,7 +143,6 @@ private extension ListView {
 
 //MARK: IListView
 extension ListView: IListView {
-    
     func getTableView() -> ListTableView {
         return self.tableView
     }

@@ -30,6 +30,14 @@ final class ListTableViewCell: UITableViewCell {
         static let backgroundColor: UIColor = .black
     }
     
+    private enum Metrics {
+        static let zeroSpacing = CGFloat(0)
+        static let percentLabelWidth = CGFloat(100)
+        static let standartHeight = CGFloat(50)
+        static let priceLabelWidth = CGFloat(150)
+        static let priceLabelLeading = CGFloat(10)
+    }
+    
     var setPriceHandler: (() -> String)?
     var setPercentHandler: (() -> String)?
     
@@ -65,16 +73,16 @@ final class ListTableViewCell: UITableViewCell {
     
     func makeLabelsConstraints(){
         self.percentLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.percentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        self.percentLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        self.percentLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        self.percentLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        self.percentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Metrics.zeroSpacing).isActive = true
+        self.percentLabel.widthAnchor.constraint(equalToConstant: Metrics.percentLabelWidth).isActive = true
+        self.percentLabel.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
+        self.percentLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Metrics.zeroSpacing).isActive = true
         
         self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.priceLabel.trailingAnchor.constraint(equalTo: self.percentLabel.leadingAnchor, constant: 10).isActive = true
-        self.priceLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        self.priceLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        self.priceLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        self.priceLabel.trailingAnchor.constraint(equalTo: self.percentLabel.leadingAnchor, constant: Metrics.priceLabelLeading).isActive = true
+        self.priceLabel.widthAnchor.constraint(equalToConstant: Metrics.priceLabelWidth).isActive = true
+        self.priceLabel.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
+        self.priceLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Metrics.zeroSpacing).isActive = true
     }
 }
 
@@ -82,16 +90,16 @@ extension ListTableViewCell: IListTableViewCell {
     func setLabelsText(price: String, percent: String) {
         
         guard let doublePrice = Double(price) else { return }
-
+        
         let doublePriceText = String(format:"%.3f", doublePrice)
         self.priceLabel.text = "\(doublePriceText) USD"
-     
+        
         
         guard let doublePercent = Double(percent) else { return }
- 
+        
         let doublePercentText = String(format: "%.2f", doublePercent)
         self.percentLabel.text = "\(doublePercentText) %"
-
+        
         if doublePercent > 0 {
             self.percentLabel.textColor = Colors.riseColor
         } else {

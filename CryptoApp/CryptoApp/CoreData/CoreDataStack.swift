@@ -35,6 +35,8 @@ final class CoreDataStack {
     }
 }
 
+//MARK: Currency
+
 extension CoreDataStack {
     
     func create(currencyId: String, userId: UUID) {
@@ -49,11 +51,11 @@ extension CoreDataStack {
         self.saveContext()
     }
     
-        func getCurrency(for user: AuthModel) -> [FilterModel] {
-            let fetchRequest: NSFetchRequest<FilterItem> = FilterItem.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "ANY holder.uid = '\(user.getUid())'")
-            return (try? self.persistentContainer.viewContext.fetch(fetchRequest).compactMap { FilterModel(currency: $0) }) ?? []
-        }
+    func getCurrency(for user: AuthModel) -> [FilterModel] {
+        let fetchRequest: NSFetchRequest<FilterItem> = FilterItem.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "ANY holder.uid = '\(user.getUid())'")
+        return (try? self.persistentContainer.viewContext.fetch(fetchRequest).compactMap { FilterModel(currency: $0) }) ?? []
+    }
 }
 
 //MARK: Authorization

@@ -21,7 +21,7 @@ final class ConvertPresenter {
     
     private var cryptoRateRow = 0
     private var currencyRateRow = 0
-
+    
     
     struct Dependencies {
         let network: INetworkManager
@@ -100,6 +100,7 @@ private extension ConvertPresenter {
             self?.view?.setConvertText(convertValue: convertValue)
         }
     }
+    
     func loadDataNetwork() {
         let url = self.network.getConvertUrl()
         self.network.loadData(url: url) { [weak self] (result: Result<CurrencyDTOModel, Error>) in
@@ -126,9 +127,9 @@ private extension ConvertPresenter {
                 guard let cryptoPrice = self?.cryptoModel.getCriptoPrice() else { return }
                 
                 let convertModel = ConvertModel(criptoSymbol: cryptoSymbol,
-                                         criptoPrice: cryptoPrice,
-                                         currencySymbol: currencySymbol,
-                                         currencyPrice: currencyRate)
+                                                criptoPrice: cryptoPrice,
+                                                currencySymbol: currencySymbol,
+                                                currencyPrice: currencyRate)
                 
                 self?.data.append(convertModel)
                 
@@ -150,7 +151,7 @@ private extension ConvertPresenter {
     }
 }
 
-//MARK: IAuthPresenter
+//MARK: IConvertPresenter
 extension ConvertPresenter: IConvertPresenter {
     
     func loadView(controller: ConvertViewController, view: IConvertView) {

@@ -14,16 +14,11 @@ protocol IDetailPresenter {
 
 final class DetailPresenter {
     
-    private enum Literal {
-        
-    }
-    
     private weak var controller: DetailViewController?
     private var view: IDetailView?
     
     private var network: INetworkManager
     private let coreDS = CoreDataStack()
-    private var router: DetailRouter
     
     private let item: ListModel
     private let user: AuthModel
@@ -34,19 +29,16 @@ final class DetailPresenter {
     private var data = [DetailModel]()
     
     struct Dependencies {
-        let router: DetailRouter
         let network: INetworkManager
         let item: ListModel
         let user: AuthModel
     }
     
     init(dependencies: Dependencies) {
-        self.router = dependencies.router
         self.network = dependencies.network
         self.item = dependencies.item
         self.user = dependencies.user
     }
-    
 }
 
 //MARK: Private extension
@@ -54,10 +46,7 @@ private extension DetailPresenter {
     func setHandlers() {
         self.controller?.addToFavoriteHandler = { [weak self] in
             guard let currencyId = self?.item.getId() else { return }
-            print("CURENCY ID IS \(currencyId)")
             guard let userId = self?.user.getUid() else { return }
-            print("USER ID IS \(userId)")
-                    
             self?.coreDS.create(currencyId: currencyId, userId: userId)
         }
     }
@@ -65,11 +54,9 @@ private extension DetailPresenter {
     func loadDataNetwork() {
         let detailUrl = "https://api.coincap.io/v2/assets/\(self.item.getId())/markets?apikey=\(network.getApiKey())"
         self.network.loadData(url: detailUrl) { [weak self] (result: Result<DetailModelDTO, Error>) in
-            
             switch result {
             case .success(let model):
                 let data = model.data
-                
                 data.forEach { item in
                     guard let price = Double(item.priceUsd) else { return }
                     self?.priceArray.append(price)
@@ -101,7 +88,6 @@ private extension DetailPresenter {
                                                avaliableAmount: model.getAvaliableAmount(),
                                                changePercent: model.getChangePercent())
                     }
-                 
                 }
                 
                 DispatchQueue.main.async {
@@ -125,11 +111,8 @@ extension DetailPresenter: IDetailPresenter {
         
         self.controller = controller
         self.view = view
-        
         self.loadDataNetwork()
-        
         self.controller?.setNavBar(title: item.getName())
-        
         self.setHandlers()
     }
 }

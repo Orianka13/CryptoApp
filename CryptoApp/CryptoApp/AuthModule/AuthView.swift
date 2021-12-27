@@ -17,8 +17,8 @@ final class AuthView: UIView {
     
     private enum Literal {
         static let title = "Authentication"
-        static let loginPlaceholder = "   Login"
-        static let passwordPlaceholder = "   Password"
+        static let loginPlaceholder = "Login"
+        static let passwordPlaceholder = "Password"
         static let loginButtonTitle = "LogIn"
         static let registerButtonTitle = "Register"
     }
@@ -53,6 +53,8 @@ final class AuthView: UIView {
     
     private lazy var loginField: UITextField = {
         let tf = UITextField()
+        tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: tf.frame.height))
+        tf.leftViewMode = .always
         tf.placeholder = Literal.loginPlaceholder
         tf.backgroundColor = Colors.tfBackgroundColor
         tf.layer.cornerRadius = Metrics.cornerRadius
@@ -61,6 +63,8 @@ final class AuthView: UIView {
     
     private lazy var passwordField: UITextField = {
         let tf = UITextField()
+        tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: tf.frame.height))
+        tf.leftViewMode = .always
         tf.placeholder = Literal.passwordPlaceholder
         tf.backgroundColor = Colors.tfBackgroundColor
         tf.layer.cornerRadius = Metrics.cornerRadius
@@ -94,6 +98,11 @@ final class AuthView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+}
+
+//MARK: Private extension
+
+private extension AuthView {
     
     private func addView(){
         self.addSubview(labelTitle)
@@ -110,9 +119,7 @@ final class AuthView: UIView {
         self.makeLoginButtonConstraints()
         self.makeRegisterButtonConstraints()
     }
-}
-
-private extension AuthView {
+    
     @objc func loginButtonTapped() {
         self.loginHandler?(self.loginField.text, self.passwordField.text)
         self.loginField.text = ""
@@ -126,16 +133,16 @@ private extension AuthView {
     }
 }
 
-//MARK: - ListViewLayout
+//MARK: - AuthViewLayout
 
-extension AuthView {
-    private func makeLabelTitleConstraints() {
+private extension AuthView {
+    func makeLabelTitleConstraints() {
         self.labelTitle.translatesAutoresizingMaskIntoConstraints = false
         self.labelTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.labelTitle.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = false
         self.labelTitle.bottomAnchor.constraint(equalTo: self.loginField.topAnchor, constant: -Metrics.labelTitleBottomSpacing).isActive = true
     }
-    private func makeLoginFieldConstraints() {
+    func makeLoginFieldConstraints() {
         self.loginField.translatesAutoresizingMaskIntoConstraints = false
         self.loginField.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         self.loginField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Metrics.tfSpacing).isActive = true
@@ -143,21 +150,21 @@ extension AuthView {
         self.loginField.topAnchor.constraint(equalTo: self.labelTitle.bottomAnchor, constant: Metrics.topSpacing).isActive = false
         self.loginField.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
     }
-    private func makePasswordFieldConstraints() {
+    func makePasswordFieldConstraints() {
         self.passwordField.translatesAutoresizingMaskIntoConstraints = false
         self.passwordField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Metrics.tfSpacing).isActive = true
         self.passwordField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Metrics.tfSpacing).isActive = true
         self.passwordField.topAnchor.constraint(equalTo: self.loginField.bottomAnchor, constant: Metrics.topSpacing).isActive = true
         self.passwordField.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
     }
-    private func makeLoginButtonConstraints() {
+    func makeLoginButtonConstraints() {
         self.loginButton.translatesAutoresizingMaskIntoConstraints = false
         self.loginButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.loginButton.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
         self.loginButton.widthAnchor.constraint(equalToConstant: Metrics.buttonWidth).isActive = true
         self.loginButton.topAnchor.constraint(equalTo: self.passwordField.bottomAnchor, constant: Metrics.topSpacing).isActive = true
     }
-    private func makeRegisterButtonConstraints() {
+    func makeRegisterButtonConstraints() {
         self.registerButton.translatesAutoresizingMaskIntoConstraints = false
         self.registerButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.registerButton.topAnchor.constraint(equalTo: self.loginButton.bottomAnchor, constant: Metrics.topSpacing).isActive = true

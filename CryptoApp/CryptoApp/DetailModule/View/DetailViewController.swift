@@ -18,6 +18,9 @@ final class DetailViewController: UIViewController {
     private struct Literal {
         static let navigationTitle = "Detail"
         static let imageName = "star"
+        static let favoriteImage = "star.fill"
+        static let alertTitle = "Обновите страницу"
+        static let alertAction = "OK"
     }
     
     private enum Colors {
@@ -48,13 +51,10 @@ final class DetailViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.presenter?.loadView(controller: self, view: self.detailView)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
     }
     
     override func viewDidLoad() {
@@ -64,6 +64,7 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func addToFavorite(){
+        self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: Literal.favoriteImage)
         self.addToFavoriteHandler?()
     }
     
@@ -82,8 +83,8 @@ extension DetailViewController: IDetailViewController {
     }
     
     func showAlert(message: String) {
-        let alert = UIAlertController(title: "Обновите страницу", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        let alert = UIAlertController(title: Literal.alertTitle, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Literal.alertAction, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

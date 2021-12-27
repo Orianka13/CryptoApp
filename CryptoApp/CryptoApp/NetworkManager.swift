@@ -8,7 +8,7 @@
 import Foundation
 
 protocol INetworkManager {
-   
+    
     func loadData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void)
     func getListUrl() -> String
     func getApiKey() -> String
@@ -16,10 +16,10 @@ protocol INetworkManager {
     
 }
 
-final class NetworkManager: INetworkManager {
+final class NetworkManager {
     
     private enum Literal {
-        static let apiKey = "1438444b-c2f3-4d34-97cd-b0becbe7bcf9" //coincap.io
+        static let apiKey = "1438444b-c2f3-4d34-97cd-b0becbe7bcf9"
         static let listUrl = "https://api.coincap.io/v2/assets?apikey=\(Literal.apiKey)"
         static let convertUrl = "https://api.coincap.io/v2/rates?apikey=\(Literal.apiKey)"
     }
@@ -34,10 +34,14 @@ final class NetworkManager: INetworkManager {
             self.session = URLSession(configuration: URLSessionConfiguration.default)
         }
     }
+}
 
+//MARK: INetworkManager
+extension NetworkManager: INetworkManager {
+    
     func loadData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
         guard let url = URL(string: url) else { return }
-
+        
         let request = URLRequest(url: url)
         self.session.dataTask(with: request) { data, response, error in
             if let error = error {

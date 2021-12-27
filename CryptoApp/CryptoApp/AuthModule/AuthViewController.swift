@@ -17,10 +17,6 @@ final class AuthViewController: UIViewController {
         static let mainBackgroundColor: UIColor = .black
     }
     
-    private enum Metrics {
-  
-    }
-    
     private let authView: AuthView
     private let presenter: IAuthPresenter?
     
@@ -46,17 +42,9 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.addSubview(authView)
-        
         self.view.backgroundColor = Colors.mainBackgroundColor
     }
-}
-
-//MARK: Private extension
-private extension AuthViewController {
-    
-
 }
 
 extension AuthViewController: IAuthViewController {

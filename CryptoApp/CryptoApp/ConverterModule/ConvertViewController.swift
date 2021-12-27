@@ -16,7 +16,6 @@ final class ConvertViewController: UIViewController {
     private enum Colors {
         static let mainBackgroundColor: UIColor = .black
     }
-
     
     private let convertView: ConvertView
     private let presenter: IConvertPresenter?
@@ -38,23 +37,16 @@ final class ConvertViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.presenter?.loadView(controller: self, view: self.convertView)
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.addSubview(convertView)
-        
         self.view.backgroundColor = Colors.mainBackgroundColor
     }
 }
 
-//MARK: Private extension
-private extension ConvertViewController {
-    
-
-}
+//MARK: IConvertViewController
 
 extension ConvertViewController: IConvertViewController {
     func showAlert(message: String) {

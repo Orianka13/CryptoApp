@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol IListTableView {
-    
     var didSelectRowAtHandler: ((IndexPath) -> Void)? { get set }
     var numberOfRowsInSectionHandler: (() -> Int)? { get set }
     var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)? { get set }
@@ -21,7 +20,6 @@ final class ListTableView: UIView {
     
     private enum Metrics {
         static let zeroSpacing = CGFloat(0)
-        
     }
     
     private enum Colors {
@@ -34,7 +32,7 @@ final class ListTableView: UIView {
     }
     
     private var tableView: UITableView = UITableView()
-  
+    
     var didSelectRowAtHandler: ((IndexPath) -> Void)?
     var numberOfRowsInSectionHandler: (() -> Int)?
     var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)?
@@ -44,18 +42,14 @@ final class ListTableView: UIView {
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        
         self.tableView.backgroundColor = Colors.backgroundColor
-        
         self.tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
-        
         self.addView()
         self.setConstraint()
-        
     }
     
     required init?(coder: NSCoder) {
-        fatalError()
+        super.init(coder: coder)
     }
 }
 

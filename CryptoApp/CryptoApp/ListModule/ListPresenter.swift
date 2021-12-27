@@ -117,12 +117,6 @@ private extension ListPresenter {
         
     }
     
-    
-    private func getContext() -> NSManagedObjectContext {
-        return self.coreDS.persistentContainer.viewContext
-        
-    }
-    
     func loadDataNetwork() {
         let url = self.network.getListUrl()
         self.network.loadData(url: url) { [weak self] (result: Result<ModelDTO, Error>) in
@@ -146,7 +140,7 @@ private extension ListPresenter {
                     self?.setHandlers()
                 }
                 guard let data = self?.data else {
-                    print("No data in data")
+                    self?.controller?.showAlert(message: "No data")
                     return
                 }
                 self?.filteredData = data
@@ -173,12 +167,8 @@ extension ListPresenter: IListPresenter {
         
         self.controller = controller
         self.view = view
-        
         self.tableView = view.getTableView()
-        
         self.loadDataNetwork()
-        
         self.controller?.setNavBar()
-        
     }
 }

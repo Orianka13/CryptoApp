@@ -45,7 +45,5 @@ extension ConvertModel: IConvertModel {
     func getCurrencyPrice() -> [Double] {
         return self.currencyPrice
     }
-    
-    
 }
 

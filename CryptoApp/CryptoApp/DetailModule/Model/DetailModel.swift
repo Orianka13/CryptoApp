@@ -37,7 +37,7 @@ final class DetailModel {
         self.lowMarket = lowMarket
         self.avaliableAmount = item.getSupply()
         self.changePercent = Double(item.getChangePecent()) ?? 0
- 
+        
     }
 }
 

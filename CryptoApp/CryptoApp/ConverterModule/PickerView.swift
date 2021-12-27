@@ -33,13 +33,6 @@ extension ConvertView: UIPickerViewDelegate {
             self.picker2DidSelectHandler?(row)
         }
     }
-    
-//    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//        let attributedString = NSAttributedString(string: info.button[row], attributes: [NSAttributedString.Key.foregroundColor: MainColor.mainBackgroundColor])
-//        return attributedString
-//    }
-    
- 
 }
 
 //MARK: - UIPickerViewDataSource

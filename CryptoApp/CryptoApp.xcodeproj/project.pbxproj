@@ -36,7 +36,6 @@
 		593409422775CE5700E0974E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409412775CE5700E0974E /* DetailView.swift */; };
 		593409442775CE6200E0974E /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409432775CE6200E0974E /* DetailPresenter.swift */; };
 		593409462775CE6D00E0974E /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409452775CE6D00E0974E /* DetailAssembly.swift */; };
-		593409482775CE7600E0974E /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409472775CE7600E0974E /* DetailRouter.swift */; };
 		5934094A2775D34900E0974E /* DetailModelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593409492775D34900E0974E /* DetailModelDTO.swift */; };
 		599C49762779C731004C3438 /* ConvertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599C49752779C731004C3438 /* ConvertModel.swift */; };
 		599C49782779C749004C3438 /* CurrencyDTOModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599C49772779C749004C3438 /* CurrencyDTOModel.swift */; };
@@ -83,7 +82,6 @@
 		593409412775CE5700E0974E /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		593409432775CE6200E0974E /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		593409452775CE6D00E0974E /* DetailAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
-		593409472775CE7600E0974E /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		593409492775D34900E0974E /* DetailModelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModelDTO.swift; sourceTree = "<group>"; };
 		599C49752779C731004C3438 /* ConvertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvertModel.swift; path = CryptoApp/ConverterModule/ConvertModel.swift; sourceTree = SOURCE_ROOT; };
 		599C49772779C749004C3438 /* CurrencyDTOModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyDTOModel.swift; path = CryptoApp/ConverterModule/CurrencyDTOModel.swift; sourceTree = SOURCE_ROOT; };
@@ -201,7 +199,6 @@
 				5934094C27760B0300E0974E /* View */,
 				593409432775CE6200E0974E /* DetailPresenter.swift */,
 				593409452775CE6D00E0974E /* DetailAssembly.swift */,
-				593409472775CE7600E0974E /* DetailRouter.swift */,
 			);
 			path = DetailModule;
 			sourceTree = "<group>";
@@ -316,7 +313,6 @@
 				5934090F2773515600E0974E /* CoreDataStack.swift in Sources */,
 				59340925277380BF00E0974E /* ListAssembly.swift in Sources */,
 				5934093E2775CE4100E0974E /* DetailModel.swift in Sources */,
-				593409482775CE7600E0974E /* DetailRouter.swift in Sources */,
 				593409292773811100E0974E /* ListTableView.swift in Sources */,
 				59340921277380A900E0974E /* ListView.swift in Sources */,
 				59D9859E2778E3FB0078DD00 /* ConvertAssembly.swift in Sources */,

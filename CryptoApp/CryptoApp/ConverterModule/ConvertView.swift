@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol IConvertView {
+    
     var goBackHandler: (() -> Void)? { get set }
     var showPickerCryptoHandler: (() -> Void)? { get set }
     var showPickerCurrencyHandler: (() -> Void)? { get set }
@@ -34,12 +35,12 @@ final class ConvertView: UIView {
         static let fromLabel = "From"
         static let toLabel = "To"
         static let buttonTitle = "Convert"
+        static let arrowImage = "chevron.down"
     }
     
     private enum Fonts {
         static let textFont = UIFont(name: "HiraginoSans-W3", size: 20)
         static let labelTextFont = UIFont(name: "HiraginoSans-W3", size: 17)
-        
     }
     
     private enum Metrics {
@@ -52,7 +53,7 @@ final class ConvertView: UIView {
         static let buttonWidth = CGFloat(100)
         static let minSpacing = CGFloat(1)
         static let smallWidth = CGFloat(50)
-        static let bigWidth = CGFloat(100)
+        static let bigWidth = CGFloat(50)
         static let topSpacing = CGFloat(70)
     }
     
@@ -61,6 +62,21 @@ final class ConvertView: UIView {
         static let mainColor = UIColor(red: 103/255, green: 222/255, blue: 165/255, alpha: 1)
         static let textColor: UIColor = .black
     }
+    
+    private lazy var arrow1Image: UIImageView = {
+        let image = UIImage(systemName: Literal.arrowImage)
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.tintColor = Colors.mainColor
+        return imageView
+    }()
+    private lazy var arrow2Image: UIImageView = {
+        let image = UIImage(systemName: Literal.arrowImage)
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.tintColor = Colors.mainColor
+        return imageView
+    }()
     
     private lazy var fromLabel: UILabel = {
         let label = UILabel()
@@ -89,7 +105,6 @@ final class ConvertView: UIView {
     private lazy var chooseCriptoTF: UITextField = {
         let tf = UITextField()
         tf.addTarget(self, action: #selector(showPickerView), for: .touchUpInside)
-        //tf.text = "BTC"
         tf.textColor = Colors.mainColor
         tf.font = Fonts.textFont
         return tf
@@ -97,7 +112,9 @@ final class ConvertView: UIView {
     
     private lazy var setAmountCriptoTF: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "   Enter amount"
+        tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: tf.frame.height))
+        tf.leftViewMode = .always
+        tf.placeholder = "Enter amount"
         tf.textColor = Colors.textColor
         tf.backgroundColor = Colors.tintColor
         tf.layer.cornerRadius = Metrics.cornerRadius
@@ -108,7 +125,6 @@ final class ConvertView: UIView {
     private lazy var chooseCurrencyTF: UITextField = {
         let tf = UITextField()
         tf.addTarget(self, action: #selector(showCurrencyPickerView), for: .touchUpInside)
-        //tf.text = "RUB"
         tf.textColor = Colors.mainColor
         tf.font = Fonts.textFont
         return tf
@@ -116,7 +132,8 @@ final class ConvertView: UIView {
     
     private lazy var setAmountCurrencyTF: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "..."
+        tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: tf.frame.height))
+        tf.leftViewMode = .always
         tf.textColor = Colors.textColor
         tf.backgroundColor = Colors.tintColor
         tf.layer.cornerRadius = Metrics.cornerRadius
@@ -158,8 +175,12 @@ final class ConvertView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-    private func addView(){
+}
+
+//MARK: Privare extension
+
+private extension ConvertView {
+    func addView(){
         self.addSubview(closeButton)
         
         self.addSubview(chooseCriptoTF)
@@ -171,12 +192,13 @@ final class ConvertView: UIView {
         self.addSubview(toLabel)
         
         self.addSubview(convertButton)
+        
+        self.addSubview(arrow1Image)
+        self.addSubview(arrow2Image)
     }
     
-    private func setConstraint(){
-        
+    func setConstraint(){
         self.makeCloseButtonConstraints()
-        
         self.makeFromLabelConstraints()
         self.makeChooseCriptoTFConstraints()
         self.makeSetAmountCriptoTFConstraints()
@@ -184,10 +206,10 @@ final class ConvertView: UIView {
         self.makeChooseCurrencyTFConstraints()
         self.makeSetAmountCurrencyTFConstraints()
         self.makeConvertButtonConstraint()
+        self.makeArrow1Constraints()
+        self.makeArrow2Constraints()
     }
-}
-
-private extension ConvertView {
+    
     @objc func goBackButton() {
         self.goBackHandler?()
     }
@@ -202,7 +224,6 @@ private extension ConvertView {
     
     @objc func convertButtonTapped() {
         self.convertHandler?()
-        self.setAmountCriptoTF.text = ""
     }
     
     func choicePoint() {
@@ -220,11 +241,11 @@ private extension ConvertView {
     }
 }
 
-//MARK: - ListViewLayout
+//MARK: - ConvertViewLayout
 
 private extension ConvertView {
     
-    private func makeCloseButtonConstraints() {
+    func makeCloseButtonConstraints() {
         self.closeButton.translatesAutoresizingMaskIntoConstraints = false
         self.closeButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: Metrics.standartSpacing).isActive = true
         self.closeButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
@@ -232,14 +253,14 @@ private extension ConvertView {
         self.closeButton.heightAnchor.constraint(equalToConstant: Metrics.standartSpacing).isActive = true
     }
     
-    private func makeFromLabelConstraints() {
+    func makeFromLabelConstraints() {
         self.fromLabel.translatesAutoresizingMaskIntoConstraints = false
         self.fromLabel.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: Metrics.topSpacing).isActive = true
         self.fromLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
         self.fromLabel.widthAnchor.constraint(equalToConstant: Metrics.smallWidth).isActive = true
     }
     
-    private func makeChooseCriptoTFConstraints() {
+    func makeChooseCriptoTFConstraints() {
         self.chooseCriptoTF.translatesAutoresizingMaskIntoConstraints = false
         self.chooseCriptoTF.topAnchor.constraint(equalTo: self.fromLabel.bottomAnchor, constant: Metrics.smallTopSpacing).isActive = true
         self.chooseCriptoTF.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
@@ -248,23 +269,31 @@ private extension ConvertView {
         
     }
     
-    private func makeSetAmountCriptoTFConstraints() {
+    func makeArrow1Constraints() {
+        self.arrow1Image.translatesAutoresizingMaskIntoConstraints = false
+        self.arrow1Image.leadingAnchor.constraint(equalTo: self.chooseCriptoTF.trailingAnchor, constant: Metrics.minSpacing).isActive = true
+        self.arrow1Image.topAnchor.constraint(equalTo: self.fromLabel.bottomAnchor, constant: Metrics.standartSpacing).isActive = true
+        self.arrow1Image.widthAnchor.constraint(equalToConstant: Metrics.standartSpacing).isActive = true
+        self.arrow1Image.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = false
+    }
+    
+    func makeSetAmountCriptoTFConstraints() {
         self.setAmountCriptoTF.translatesAutoresizingMaskIntoConstraints = false
         self.setAmountCriptoTF.topAnchor.constraint(equalTo: self.fromLabel.bottomAnchor, constant: Metrics.smallTopSpacing).isActive = true
-        self.setAmountCriptoTF.leadingAnchor.constraint(equalTo: self.chooseCriptoTF.trailingAnchor, constant: Metrics.minSpacing).isActive = true
+        self.setAmountCriptoTF.leadingAnchor.constraint(equalTo: self.arrow1Image.trailingAnchor, constant: Metrics.smallTopSpacing).isActive = true
         self.setAmountCriptoTF.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.standartSpacing).isActive = true
         self.setAmountCriptoTF.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
         
     }
     
-    private func makeToLabelConstraints() {
+    func makeToLabelConstraints() {
         self.toLabel.translatesAutoresizingMaskIntoConstraints = false
         self.toLabel.topAnchor.constraint(equalTo: self.chooseCriptoTF.bottomAnchor, constant: Metrics.bigTopSpacing).isActive = true
         self.toLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
         self.toLabel.widthAnchor.constraint(equalToConstant: Metrics.smallWidth).isActive = true
     }
     
-    private func makeChooseCurrencyTFConstraints() {
+    func makeChooseCurrencyTFConstraints() {
         self.chooseCurrencyTF.translatesAutoresizingMaskIntoConstraints = false
         self.chooseCurrencyTF.topAnchor.constraint(equalTo: self.toLabel.bottomAnchor, constant: Metrics.smallTopSpacing).isActive = true
         self.chooseCurrencyTF.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
@@ -272,22 +301,28 @@ private extension ConvertView {
         self.chooseCurrencyTF.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
     }
     
-    private func makeSetAmountCurrencyTFConstraints() {
+    func makeArrow2Constraints() {
+        self.arrow2Image.translatesAutoresizingMaskIntoConstraints = false
+        self.arrow2Image.leadingAnchor.constraint(equalTo: self.chooseCurrencyTF.trailingAnchor, constant: Metrics.minSpacing).isActive = true
+        self.arrow2Image.topAnchor.constraint(equalTo: self.toLabel.bottomAnchor, constant: Metrics.standartSpacing).isActive = true
+        self.arrow2Image.widthAnchor.constraint(equalToConstant: Metrics.standartSpacing).isActive = true
+    }
+    
+    func makeSetAmountCurrencyTFConstraints() {
         self.setAmountCurrencyTF.translatesAutoresizingMaskIntoConstraints = false
         self.setAmountCurrencyTF.topAnchor.constraint(equalTo: self.toLabel.bottomAnchor, constant: Metrics.smallTopSpacing).isActive = true
-        self.setAmountCurrencyTF.leadingAnchor.constraint(equalTo: self.chooseCurrencyTF.trailingAnchor, constant: Metrics.minSpacing).isActive = true
+        self.setAmountCurrencyTF.leadingAnchor.constraint(equalTo: self.arrow2Image.trailingAnchor, constant: Metrics.smallTopSpacing).isActive = true
         self.setAmountCurrencyTF.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.standartSpacing).isActive = true
         self.setAmountCurrencyTF.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
     }
     
-    private func makeConvertButtonConstraint() {
+    func makeConvertButtonConstraint() {
         self.convertButton.translatesAutoresizingMaskIntoConstraints = false
         self.convertButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.convertButton.heightAnchor.constraint(equalToConstant: Metrics.standartHeight).isActive = true
         self.convertButton.widthAnchor.constraint(equalToConstant: Metrics.buttonWidth).isActive = true
         self.convertButton.topAnchor.constraint(equalTo: self.setAmountCurrencyTF.bottomAnchor, constant: Metrics.buttonTopSpacing).isActive = true
     }
-    
 }
 
 //MARK: IAuthView

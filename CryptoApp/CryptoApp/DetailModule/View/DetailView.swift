@@ -19,6 +19,11 @@ final class DetailView: UIView {
     private enum Literal {
         static let downArrow = "arrow.down"
         static let upArrow = "arrow.up"
+        static let avPrice = "Average price: "
+        static let highPrice = "High price: "
+        static let lowPrice = "Low price: "
+        static let avaliable = "Avaliable: "
+        static let changePercent = "Change percent: "
     }
     
     private enum Metrics {
@@ -29,6 +34,7 @@ final class DetailView: UIView {
         static let minimumTopSpacing = CGFloat(10)
         static let minWidth = CGFloat(100)
         static let maxWidth = CGFloat(150)
+        static let avaliableAmountWidth = CGFloat(230)
     }
     
     private enum Fonts {
@@ -45,7 +51,7 @@ final class DetailView: UIView {
     
     private lazy var avaregePriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "Average price: "
+        label.text = Literal.avPrice
         label.font = Fonts.textFont
         label.textColor = Colors.textColor
         return label
@@ -62,7 +68,7 @@ final class DetailView: UIView {
     
     private lazy var highPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "High price: "
+        label.text = Literal.highPrice
         label.font = Fonts.lowTextFont
         label.textColor = Colors.textColor
         return label
@@ -86,7 +92,7 @@ final class DetailView: UIView {
     
     private lazy var lowPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "Low price: "
+        label.text = Literal.lowPrice
         label.font = Fonts.lowTextFont
         label.textColor = Colors.textColor
         return label
@@ -110,7 +116,7 @@ final class DetailView: UIView {
     
     private lazy var avaliableAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = "Avaliable: "
+        label.text = Literal.avaliable
         label.font = Fonts.textFont
         label.textColor = Colors.textColor
         return label
@@ -127,7 +133,7 @@ final class DetailView: UIView {
     
     private lazy var changePercentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Change percent: "
+        label.text = Literal.changePercent
         label.font = Fonts.lowTextFont
         label.textColor = Colors.textColor
         return label
@@ -277,9 +283,7 @@ private extension DetailView {
         self.highPriceLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Metrics.standartSpacing).isActive = true
         self.highPriceLabel.trailingAnchor.constraint(equalTo: self.highPrice.leadingAnchor, constant: -Metrics.minimalSpacing).isActive = true
     }
-    
-    
-    
+        
     func makehighMarketLabelConstraints() {
         self.highMarketLabel.translatesAutoresizingMaskIntoConstraints = false
         self.highMarketLabel.topAnchor.constraint(equalTo: self.highPriceLabel.bottomAnchor, constant: Metrics.minimalSpacing).isActive = true
@@ -301,13 +305,13 @@ private extension DetailView {
         self.lowPriceLabel.trailingAnchor.constraint(equalTo: self.lowPrice.leadingAnchor, constant: -Metrics.minimalSpacing).isActive = true
     }
     
-    
     func makelowMarketLabelConstraints() {
         self.lowMarketLabel.translatesAutoresizingMaskIntoConstraints = false
         self.lowMarketLabel.topAnchor.constraint(equalTo: self.lowPriceLabel.bottomAnchor, constant: Metrics.minimalSpacing).isActive = true
         self.lowMarketLabel.widthAnchor.constraint(equalToConstant: Metrics.minWidth).isActive = true
         self.lowMarketLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.standartSpacing).isActive = true
     }
+    
     func makeLineViewConstraints() {
         self.lineView.translatesAutoresizingMaskIntoConstraints = false
         self.lineView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -316,12 +320,11 @@ private extension DetailView {
         self.lineView.heightAnchor.constraint(equalToConstant: Metrics.lineHeight).isActive = true
     }
     
-    
     func makeavaliableAmountConstraints() {
         self.avaliableAmount.translatesAutoresizingMaskIntoConstraints = false
         self.avaliableAmount.topAnchor.constraint(equalTo: self.lineView.bottomAnchor, constant: Metrics.normalTopSpacing).isActive = true
         self.avaliableAmount.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Metrics.standartSpacing).isActive = true
-        self.avaliableAmount.widthAnchor.constraint(equalToConstant: 230).isActive = true
+        self.avaliableAmount.widthAnchor.constraint(equalToConstant: Metrics.avaliableAmountWidth).isActive = true
     }
     
     func makeavaliableAmountLabelConstraints() {
@@ -352,14 +355,14 @@ extension DetailView: IDetailView {
         self.lowPrice.text = "\(lowPriceText) $"
         
         self.lowMarketLabel.text = lowMarket
-       
+        
         guard let intAvAmount = Double(avaliableAmount) else { return }
         let intAvAmountText = String(format:"%.0f", intAvAmount)
         self.avaliableAmount.text = "\(intAvAmountText) pcs"
- 
+        
         let changePercentText = String(format: "%.2f", changePercent)
         self.changePercent.text = "\(changePercentText) %"
-
+        
         if changePercent > 0 {
             self.arrowImage.image = UIImage(systemName: Literal.upArrow)
             self.arrowImage.tintColor = Colors.mainColor
@@ -368,6 +371,5 @@ extension DetailView: IDetailView {
             self.arrowImage.tintColor = Colors.redColor
         }
     }
-    
 }
 

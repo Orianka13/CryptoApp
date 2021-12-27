@@ -16,6 +16,9 @@ final class ListViewController: UIViewController {
     
     private struct Literal {
         static let navigationTitle = "CryptoList"
+        static let navExit = "Exit"
+        static let alertTitle = "Обновите страницу"
+        static let alertAction = "OK"
     }
     
     private enum Colors {
@@ -46,13 +49,10 @@ final class ListViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.presenter?.loadView(controller: self, view: self.listView)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
     }
     
     override func viewDidLoad() {
@@ -68,7 +68,7 @@ extension ListViewController: IListViewController {
     
     func setNavBar(){
         self.navigationItem.title = Literal.navigationTitle
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: Literal.navExit, style: .plain, target: nil, action: nil)
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.titleFont ?? .systemFont(ofSize: 20)], for: .normal)
         
@@ -76,8 +76,8 @@ extension ListViewController: IListViewController {
     }
     
     func showAlert(message: String) {
-        let alert = UIAlertController(title: "Обновите страницу", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        let alert = UIAlertController(title: Literal.alertTitle, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Literal.alertAction, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }
