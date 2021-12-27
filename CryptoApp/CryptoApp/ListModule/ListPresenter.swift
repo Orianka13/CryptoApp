@@ -158,7 +158,7 @@ private extension ListPresenter {
             case .failure(let error):
                 print("[NETWORK] error is: \(error)")
                 DispatchQueue.main.async {
-                    print("Загрузка закончена с ошибкой \(error.localizedDescription)")
+                    self?.controller?.showAlert(message: "Загрузка закончена с ошибкой \(error.localizedDescription)")
                 }
             }
         }

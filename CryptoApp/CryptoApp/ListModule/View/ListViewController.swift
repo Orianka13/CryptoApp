@@ -9,6 +9,7 @@ import UIKit
 
 protocol IListViewController: AnyObject {
     func setNavBar()
+    func showAlert(message: String)
 }
 
 final class ListViewController: UIViewController {
@@ -72,5 +73,11 @@ extension ListViewController: IListViewController {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem?.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.titleFont ?? .systemFont(ofSize: 20)], for: .normal)
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem?.tintColor = Colors.starColor
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Обновите страницу", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

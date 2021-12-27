@@ -10,6 +10,7 @@ import UIKit
 protocol IDetailViewController: AnyObject {
     func setNavBar(title: String)
     var addToFavoriteHandler: (() -> Void)? { get set }
+    func showAlert(message: String)
 }
 
 final class DetailViewController: UIViewController {
@@ -78,6 +79,12 @@ extension DetailViewController: IDetailViewController {
         self.navigationItem.rightBarButtonItem = rightButton
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem?.tintColor = Colors.starColor
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Обновите страницу", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

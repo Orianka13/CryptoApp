@@ -202,6 +202,7 @@ private extension ConvertView {
     
     @objc func convertButtonTapped() {
         self.convertHandler?()
+        self.setAmountCriptoTF.text = ""
     }
     
     func choicePoint() {

@@ -46,7 +46,6 @@ final class NetworkManager: INetworkManager {
             if let data = data {
                 do {
                     let result = try JSONDecoder().decode(T.self, from: data)
-                    //print("[NETWORK] \(response)")
                     completion(.success(result))
                 }
                 catch {

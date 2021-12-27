@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IConvertViewController {
- 
+    func showAlert(message: String)
 }
 
 final class ConvertViewController: UIViewController {
@@ -57,7 +57,11 @@ private extension ConvertViewController {
 }
 
 extension ConvertViewController: IConvertViewController {
-   
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Обновите страницу", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 

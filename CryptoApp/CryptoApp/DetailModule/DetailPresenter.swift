@@ -79,7 +79,6 @@ private extension DetailPresenter {
                 }
                 guard let maxPrice = self?.priceArray.max() else { return }
                 guard let minPrice = self?.priceArray.min() else { return }
-                print("MaxPrice: \(maxPrice) MInPrice: \(minPrice)")
                 
                 guard let maxMarket = self?.markets.randomElement() else { return }
                 guard let minMarket = self?.markets.randomElement() else { return }
@@ -111,7 +110,7 @@ private extension DetailPresenter {
             case .failure(let error):
                 print("[NETWORK] error is: \(error)")
                 DispatchQueue.main.async {
-                    print("Загрузка закончена с ошибкой \(error.localizedDescription)")
+                    self?.controller?.showAlert(message: "Загрузка закончена с ошибкой \(error.localizedDescription)")
                 }
             }
         }
