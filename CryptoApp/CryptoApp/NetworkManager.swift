@@ -12,6 +12,7 @@ protocol INetworkManager {
     func loadData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void)
     func getListUrl() -> String
     func getApiKey() -> String
+    func getConvertUrl() -> String
     
 }
 
@@ -20,6 +21,7 @@ final class NetworkManager: INetworkManager {
     private enum Literal {
         static let apiKey = "1438444b-c2f3-4d34-97cd-b0becbe7bcf9" //coincap.io
         static let listUrl = "https://api.coincap.io/v2/assets?apikey=\(Literal.apiKey)"
+        static let convertUrl = "https://api.coincap.io/v2/rates?apikey=\(Literal.apiKey)"
     }
     
     private let session: URLSession
@@ -60,5 +62,9 @@ final class NetworkManager: INetworkManager {
     
     func getApiKey() -> String {
         return Literal.apiKey
+    }
+    
+    func getConvertUrl() -> String {
+        return Literal.convertUrl
     }
 }

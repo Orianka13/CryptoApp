@@ -50,7 +50,7 @@ private extension ListPresenter {
     func setHandlers() {
         
         self.tableView?.didSelectRowAtHandler = { [weak self] indexPath in
-            guard let item = self?.data[indexPath.row] else { return }
+            guard let item = self?.filteredData[indexPath.row] else { return }
             guard let user = self?.user else { return }
             guard let controller = self?.controller else { return }
             self?.router.nextDetailModule(item: item, user: user, controller: controller)
@@ -101,8 +101,18 @@ private extension ListPresenter {
         }
         
         self.view?.convertHandler = { [weak self] in
+            var symbolArray = [String]()
+            var priceArray = [Double]()
+            self?.data.forEach { item in
+                let symbol = item.getSymbol()
+                let price = item.getPrice()
+                let doublePrice = Double(price) ?? 0
+                symbolArray.append(symbol)
+                priceArray.append(doublePrice)
+            }
+            let cryptoModel = CryptoModel(criptoSymbol: symbolArray, criptoPrice: priceArray)
             guard let controller = self?.controller else { return }
-            self?.router.nextConverterModule(controller: controller)
+            self?.router.nextConverterModule(controller: controller, cryptoModel: cryptoModel)
         }
         
     }

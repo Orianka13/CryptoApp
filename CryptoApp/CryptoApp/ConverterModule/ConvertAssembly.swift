@@ -9,9 +9,11 @@ import UIKit
 
 final class ConvertAssembly {
     
-    static func build() -> UIViewController {
+    static func build(cryptoModel: CryptoModel) -> UIViewController {
         
-        let presenter = ConvertPresenter()
+        let network = NetworkManager()
+        
+        let presenter = ConvertPresenter(dependencies: .init(network: network, cryptoModel: cryptoModel))
         let controller = ConvertViewController(dependencies: .init(presenter: presenter))
         
         return controller

@@ -17,9 +17,9 @@ final class ListRouter {
         controller.navigationController?.pushViewController(targetController, animated: true)
     }
     
-    func nextConverterModule(controller: ListViewController) {
+    func nextConverterModule(controller: ListViewController, cryptoModel: CryptoModel) {
         
-        let targetController = ConvertAssembly.build()
+        let targetController = ConvertAssembly.build(cryptoModel: cryptoModel)
         
         controller.navigationController?.present(targetController, animated: true)
     }
