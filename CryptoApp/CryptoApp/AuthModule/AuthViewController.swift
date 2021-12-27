@@ -45,6 +45,11 @@ final class AuthViewController: UIViewController {
         self.view.addSubview(authView)
         self.view.backgroundColor = Colors.mainBackgroundColor
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
 }
 
 extension AuthViewController: IAuthViewController {
