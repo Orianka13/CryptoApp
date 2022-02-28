@@ -11,6 +11,7 @@ import UIKit
 protocol IAuthView {
     var loginHandler: ((String?, String?) -> Void)? { get set }
     var registerHandler: ((String?, String?) -> Void)? { get set }
+    var questionHandler: (() -> Void)? { get set }
 }
 
 final class AuthView: UIView {
@@ -21,6 +22,7 @@ final class AuthView: UIView {
         static let passwordPlaceholder = "Password"
         static let loginButtonTitle = "LogIn"
         static let registerButtonTitle = "Register"
+        static let questionImageName = "questionmark.circle"
     }
     
     private enum Fonts {
@@ -34,6 +36,11 @@ final class AuthView: UIView {
         static let tfSpacing = CGFloat(30)
         static let topSpacing = CGFloat(20)
         static let buttonWidth = CGFloat(100)
+        static let zeroSpacing = CGFloat(0)
+        static let questionButtonSize = CGFloat(15)
+        static let registerButtonAlignment = CGFloat(-10)
+        static let registerButtonWidth = CGFloat(75)
+        static let questionButtonTopAnchor = CGFloat(27)
     }
     
     private enum Colors {
@@ -42,6 +49,7 @@ final class AuthView: UIView {
     }
     var loginHandler: ((String?, String?) -> Void)?
     var registerHandler: ((String?, String?) -> Void)?
+    var questionHandler: (() -> Void)?
     
     private lazy var labelTitle: UILabel = {
         let label = UILabel()
@@ -88,6 +96,15 @@ final class AuthView: UIView {
         return button
     }()
     
+    private lazy var questionButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: Literal.questionImageName)
+        button.setImage(image, for: .normal)
+        button.tintColor = Colors.mainColor
+        button.addTarget(self, action: #selector(questionButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,6 +127,7 @@ private extension AuthView {
         self.addSubview(passwordField)
         self.addSubview(loginButton)
         self.addSubview(registerButton)
+        self.addSubview(questionButton)
     }
     
     private func setConstraint(){
@@ -118,6 +136,7 @@ private extension AuthView {
         self.makePasswordFieldConstraints()
         self.makeLoginButtonConstraints()
         self.makeRegisterButtonConstraints()
+        self.makeQuestionButtonConstraints()
     }
     
     @objc func loginButtonTapped() {
@@ -130,6 +149,10 @@ private extension AuthView {
         self.registerHandler?(self.loginField.text, self.passwordField.text)
         self.loginField.text = ""
         self.passwordField.text = ""
+    }
+    
+    @objc func questionButtonTapped() {
+        self.questionHandler?()
     }
 }
 
@@ -166,8 +189,17 @@ private extension AuthView {
     }
     func makeRegisterButtonConstraints() {
         self.registerButton.translatesAutoresizingMaskIntoConstraints = false
-        self.registerButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        self.registerButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: Metrics.registerButtonAlignment).isActive = true
+        self.registerButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = false
         self.registerButton.topAnchor.constraint(equalTo: self.loginButton.bottomAnchor, constant: Metrics.topSpacing).isActive = true
+        self.registerButton.widthAnchor.constraint(equalToConstant: Metrics.registerButtonWidth).isActive = true
+    }
+    
+    func makeQuestionButtonConstraints() {
+        self.questionButton.translatesAutoresizingMaskIntoConstraints = false
+        self.questionButton.leadingAnchor.constraint(equalTo: self.registerButton.trailingAnchor, constant: Metrics.zeroSpacing).isActive = true
+        self.questionButton.topAnchor.constraint(equalTo: self.loginButton.bottomAnchor, constant: Metrics.questionButtonTopAnchor).isActive = true
+        self.questionButton.widthAnchor.constraint(equalToConstant: Metrics.questionButtonSize).isActive = false
     }
 }
 

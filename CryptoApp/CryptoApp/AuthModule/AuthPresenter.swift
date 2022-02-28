@@ -18,6 +18,7 @@ final class AuthPresenter {
         static let error2 = "Пользователь не зарегистрирован или пароль не верен"
         static let error3 = "Введите логин и пароль"
         static let error4 = "Такой пользователь уже зарегистрирован"
+        static let questionResponse = "Зарегистрируйтесь, чтобы добавлять интересующую криптовалюту в избранное"
     }
     
     private let router: AuthRouter
@@ -67,6 +68,10 @@ private extension AuthPresenter {
                 guard let vc = self?.controller else { return }
                 self?.router.next(user: newUser, controller: vc)
             })
+        }
+        
+        self.view?.questionHandler = { [weak self] in
+            self?.controller?.showAlert(message: Literal.questionResponse)
         }
     }
 }
