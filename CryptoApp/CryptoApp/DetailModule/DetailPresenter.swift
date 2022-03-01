@@ -45,6 +45,7 @@ final class DetailPresenter {
 private extension DetailPresenter {
     func setHandlers() {
         self.controller?.addToFavoriteHandler = { [weak self] in
+            //добавить проверку - если валюта уже есть в бд то при нажатии - удалить, если нет в бд - то добавить
             guard let currencyId = self?.item.getId() else { return }
             guard let userId = self?.user.getUid() else { return }
             self?.coreDS.create(currencyId: currencyId, userId: userId)

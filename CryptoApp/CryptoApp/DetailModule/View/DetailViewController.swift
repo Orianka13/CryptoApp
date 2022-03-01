@@ -74,6 +74,7 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: IDetailViewController {
     
     func setNavBar(title: String){
+        //добавить проверку на наличиие в бд валюты (если уже есть то закрасить звезду, если нет - не закрашивать)
         self.navigationItem.title = title
         let rightButton = UIBarButtonItem(image: UIImage(systemName: Literal.imageName), style: .plain, target: self, action: #selector(addToFavorite))
         rightButton.tintColor = Colors.starColor

@@ -14,6 +14,8 @@ protocol IListTableView {
     var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)? { get set }
     func reloadTableView()
     func getTableView() -> UITableView
+    var refreshControlHandler: (() -> Void)? { get set }
+    func getRefreshControl() -> UIRefreshControl
 }
 
 final class ListTableView: UIView {
@@ -25,6 +27,7 @@ final class ListTableView: UIView {
     private enum Colors {
         static let backgroundColor: UIColor = .black
         static let textColor: UIColor = .white
+        static let mainColor = UIColor(red: 103/255, green: 222/255, blue: 165/255, alpha: 1)
     }
     
     private enum Fonts {
@@ -32,10 +35,12 @@ final class ListTableView: UIView {
     }
     
     private var tableView: UITableView = UITableView()
+    private var refreshControl = UIRefreshControl()
     
     var didSelectRowAtHandler: ((IndexPath) -> Void)?
     var numberOfRowsInSectionHandler: (() -> Int)?
     var cellForRowAtHandler: ((ListTableViewCell, IndexPath) -> String)?
+    var refreshControlHandler: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,12 +49,27 @@ final class ListTableView: UIView {
         self.tableView.delegate = self
         self.tableView.backgroundColor = Colors.backgroundColor
         self.tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
+        
+        let attributedString = NSMutableAttributedString(string:"Pull to update")
+        let range : NSRange = ("Pull to update" as NSString).range(of: "Pull to update")
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: Colors.mainColor, range: range)
+        self.refreshControl.attributedTitle = attributedString
+        self.refreshControl.tintColor = Colors.mainColor
+        
+        self.refreshControl.addTarget(self, action: #selector(refreshTableView),for: UIControl.Event.valueChanged)
+        
+        self.tableView.addSubview(refreshControl)
+        
         self.addView()
         self.setConstraint()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    @objc func refreshTableView() {
+        self.refreshControlHandler?()
     }
 }
 
@@ -97,6 +117,10 @@ extension ListTableView: UITableViewDelegate {
 
 //MARK: IListTableView
 extension ListTableView: IListTableView {
+    func getRefreshControl() -> UIRefreshControl {
+        return self.refreshControl
+    }
+    
     
     func reloadTableView(){
         DispatchQueue.main.async {

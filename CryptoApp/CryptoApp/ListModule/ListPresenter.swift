@@ -151,6 +151,16 @@ private extension ListPresenter {
                 }
                 self?.filteredData = data
                 
+                self?.tableView?.refreshControlHandler = {
+                    
+                    DispatchQueue.main.async {
+                        self?.tableView?.reloadTableView()
+                        if let refreshControl = self?.tableView?.getRefreshControl() {
+                            refreshControl.endRefreshing()
+                        }
+                    }
+                }
+                
                 DispatchQueue.main.async {
                     guard let timeStamp = model.timestamp else { return }
                     print("Загрузка закончена \(timeStamp)")
@@ -159,6 +169,9 @@ private extension ListPresenter {
                 print("[NETWORK] error is: \(error)")
                 DispatchQueue.main.async {
                     self?.controller?.showAlert(message: "Загрузка закончена с ошибкой \(error.localizedDescription)")
+                    if let refreshControl = self?.tableView?.getRefreshControl() {
+                        refreshControl.endRefreshing()
+                    }
                 }
             }
         }
