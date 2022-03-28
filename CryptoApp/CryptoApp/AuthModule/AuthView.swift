@@ -46,6 +46,7 @@ final class AuthView: UIView {
     private enum Colors {
         static let mainColor = UIColor(red: 103/255, green: 222/255, blue: 165/255, alpha: 1)
         static let tfBackgroundColor: UIColor = .white
+        static let tftextColor: UIColor = .black
     }
     var loginHandler: ((String?, String?) -> Void)?
     var registerHandler: ((String?, String?) -> Void)?
@@ -66,6 +67,7 @@ final class AuthView: UIView {
         tf.placeholder = Literal.loginPlaceholder
         tf.backgroundColor = Colors.tfBackgroundColor
         tf.layer.cornerRadius = Metrics.cornerRadius
+        tf.textColor = Colors.tftextColor
         return tf
     }()
     
@@ -77,6 +79,7 @@ final class AuthView: UIView {
         tf.backgroundColor = Colors.tfBackgroundColor
         tf.layer.cornerRadius = Metrics.cornerRadius
         tf.isSecureTextEntry = true
+        tf.textColor = Colors.tftextColor
         return tf
     }()
     

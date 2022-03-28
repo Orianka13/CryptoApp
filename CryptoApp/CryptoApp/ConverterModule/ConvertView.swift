@@ -232,12 +232,14 @@ private extension ConvertView {
         self.chooseCriptoTF.inputView = self.elementPicker1
         self.elementPicker1.tag = 1
         self.elementPicker1.backgroundColor = .white
+        self.elementPicker1.tintColor = .black
         
         self.elementPicker2.delegate = self
         self.elementPicker2.dataSource = self
         self.chooseCurrencyTF.inputView = self.elementPicker2
         self.elementPicker2.tag = 2
         self.elementPicker2.backgroundColor = .white
+        self.elementPicker2.tintColor = .black
     }
 }
 

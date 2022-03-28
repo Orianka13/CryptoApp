@@ -11,10 +11,6 @@ import UIKit
 
 extension ConvertView: UIPickerViewDelegate {
     
-    private enum MainColor {
-        static let mainBackgroundColor: UIColor = UIColor(red: 87/255, green: 64/255, blue: 67/255, alpha: 1)
-    }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == self.elementPicker1 {
             let title = self.pickerTitleHandler?(row)
@@ -32,6 +28,20 @@ extension ConvertView: UIPickerViewDelegate {
         } else if pickerView == self.elementPicker2 {
             self.picker2DidSelectHandler?(row)
         }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        if pickerView == self.elementPicker1 {
+            let title = self.pickerTitleHandler?(row)
+            let attributedString = NSAttributedString(string: title ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+            return attributedString
+            
+        } else if pickerView == self.elementPicker2 {
+            let title = self.picker2TitleHandler?(row)
+            let attributedString = NSAttributedString(string: title ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+            return attributedString
+        }
+        return NSAttributedString()
     }
 }
 
