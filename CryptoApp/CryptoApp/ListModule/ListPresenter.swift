@@ -152,8 +152,8 @@ private extension ListPresenter {
                 self?.filteredData = data
                 
                 self?.tableView?.refreshControlHandler = {
-                    
                     DispatchQueue.main.async {
+                        self?.filteredData = data
                         self?.tableView?.reloadTableView()
                         if let refreshControl = self?.tableView?.getRefreshControl() {
                             refreshControl.endRefreshing()

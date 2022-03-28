@@ -47,6 +47,8 @@ final class ListTableView: UIView {
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.prefetchDataSource = self
+        
         self.tableView.backgroundColor = Colors.backgroundColor
         self.tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
         
@@ -106,7 +108,24 @@ extension ListTableView: UITableViewDataSource {
         
         return cell
     }
+    
 }
+
+// MARK: UITableViewDataSourcePrefetching
+extension ListTableView: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        print("prefetchRowsAt \(indexPaths)")
+        indexPaths.forEach { indexPath in
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath) as! ListTableViewCell
+            let name = self.cellForRowAtHandler?(cell, indexPath)
+            cell.textLabel?.text = name
+            cell.textLabel?.textColor = Colors.textColor
+            cell.textLabel?.font = Fonts.textFont
+            cell.selectionStyle = .none
+        }
+    }
+}
+
 
 extension ListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
